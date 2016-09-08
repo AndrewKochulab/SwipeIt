@@ -15,11 +15,11 @@ class EditedTransform: TransformType {
 
   init() {}
 
-  func transformFromJSON(value: AnyObject?) -> Object? {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
     return Edited.fromValue(value)
   }
 
-  func transformToJSON(value: Object?) -> JSON? {
+  func transformToJSON(_ value: Object?) -> JSON? {
     return value?.value ?? false
   }
 }

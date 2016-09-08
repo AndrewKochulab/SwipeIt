@@ -10,12 +10,12 @@ import UIKit
 
 extension UIImage {
 
-  func tint(color: UIColor) -> UIImage? {
-    var image = imageWithRenderingMode(.AlwaysTemplate)
+  func tint(_ color: UIColor) -> UIImage? {
+    var image = withRenderingMode(.alwaysTemplate)
     UIGraphicsBeginImageContextWithOptions(size, false, scale)
     color.set()
-    image.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-    image = UIGraphicsGetImageFromCurrentImageContext()
+    image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+    image = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
     return image
   }

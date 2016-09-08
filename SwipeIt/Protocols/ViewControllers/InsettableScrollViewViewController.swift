@@ -15,12 +15,12 @@ protocol InsettableScrollViewViewController: class {
 
   var topScrollInset: CGFloat { get set }
 
-  func setupInsettableScrollView(scrollView: UIScrollView)
+  func setupInsettableScrollView(_ scrollView: UIScrollView)
 }
 
 extension InsettableScrollViewViewController {
 
-  func setupInsettableScrollView(scrollView: UIScrollView) {
+  func setupInsettableScrollView(_ scrollView: UIScrollView) {
     var insets = scrollView.contentInset
     insets.top = topScrollInset
     scrollView.contentInset = insets

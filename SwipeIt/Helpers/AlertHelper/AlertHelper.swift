@@ -10,29 +10,29 @@ import UIKit
 
 class AlertHelper {
 
-  private let viewController: UIViewController
+  fileprivate let viewController: UIViewController
 
   init(viewController: UIViewController) {
     self.viewController = viewController
   }
 
   func presentActionSheet(title: String? = nil, message: String? = nil, options: [String],
-                          clicked: (Int?) -> Void) {
+                          clicked: @escaping (Int?) -> Void) {
     let alertController = UIAlertController(title: title, message: message,
-                                            preferredStyle: .ActionSheet)
+                                            preferredStyle: .actionSheet)
 
-    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
       clicked(nil)
     }
     alertController.addAction(cancelAction)
 
     (0..<options.count).forEach { index in
-      let action = UIAlertAction(title: options[index], style: .Default) { action in
+      let action = UIAlertAction(title: options[index], style: .default) { action in
         clicked(index)
       }
       alertController.addAction(action)
     }
 
-    viewController.presentViewController(alertController, animated: true, completion: nil)
+    viewController.present(alertController, animated: true, completion: nil)
   }
 }

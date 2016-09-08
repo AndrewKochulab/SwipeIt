@@ -12,24 +12,24 @@ extension ListingType {
 
   var name: String {
     switch self {
-    case .Hot:
-      return tr(.ListingTypeHot)
-    case .New:
-      return tr(.ListingTypeNew)
-    case .Rising:
-      return tr(.ListingTypeRising)
-    case .Controversial:
-      return tr(.ListingTypeControversial)
-    case .Top:
-      return tr(.ListingTypeTop)
-    case .Gilded:
-      return tr(.ListingTypeGilded)
+    case .hot:
+      return tr(.listingTypeHot)
+    case .new:
+      return tr(.listingTypeNew)
+    case .rising:
+      return tr(.listingTypeRising)
+    case .controversial:
+      return tr(.listingTypeControversial)
+    case .top:
+      return tr(.listingTypeTop)
+    case .gilded:
+      return tr(.listingTypeGilded)
     }
   }
 
   static var names: [String] {
-    return [tr(.ListingTypeHot), tr(.ListingTypeNew), tr(.ListingTypeRising),
-            tr(.ListingTypeControversial), tr(.ListingTypeTop)]
+    return [tr(.listingTypeHot), tr(.listingTypeNew), tr(.listingTypeRising),
+            tr(.listingTypeControversial), tr(.listingTypeTop)]
     //tr(.ListingTypeGilded)] Removed until comments are added
   }
 
@@ -38,7 +38,7 @@ extension ListingType {
 extension ListingTypeRange {
 
   static var names: [String] {
-    return [tr(.ListingTypeRangeHour), tr(.ListingTypeRangeDay), tr(.ListingTypeRangeWeek),
-            tr(.ListingTypeRangeMonth), tr(.ListingTypeRangeYear), tr(.ListingTypeRangeAllTime)]
+    return [tr(.listingTypeRangeHour), tr(.listingTypeRangeDay), tr(.listingTypeRangeWeek),
+            tr(.listingTypeRangeMonth), tr(.listingTypeRangeYear), tr(.listingTypeRangeAllTime)]
   }
 }

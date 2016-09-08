@@ -14,13 +14,13 @@ struct AccessToken: Mappable {
   // MARK: AccessToken
   var token: String!
   var tokenType: String!
-  var expirationDate: NSDate?
+  var expirationDate: Date?
   var scope: String!
   var refreshToken: String?
-  var created: NSDate! {
+  var created: Date! {
     didSet {
       if created == nil {
-        created = NSDate()
+        created = Date()
       }
     }
   }
@@ -41,7 +41,7 @@ struct AccessToken: Mappable {
     guard let expirationDate = expirationDate else {
       return false
     }
-    return expirationDate.compare(NSDate()) == .OrderedDescending
+    return expirationDate.compare(Date()) == .orderedDescending
   }
 
   // MARK: JSON
@@ -51,7 +51,7 @@ struct AccessToken: Mappable {
     }
   }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     created <- (map["created_at"], EpochDateTransform())
     token <- map["access_token"]
     tokenType <- map["token_type"]

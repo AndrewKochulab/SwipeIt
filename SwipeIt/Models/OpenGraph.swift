@@ -12,7 +12,7 @@ struct OpenGraph {
 
   let description: String?
   let title: String
-  let imageURL: NSURL?
+  let imageURL: URL?
   let appLink: AppLink?
 
   // MARK: HTML
@@ -27,7 +27,7 @@ struct OpenGraph {
     description = parser.contentFromMetatag("og:description")
 
     if let imageMeta = parser.contentFromMetatag("og:image") {
-      imageURL = NSURL(string: imageMeta)
+      imageURL = URL(string: imageMeta)
     } else {
       imageURL = nil
     }

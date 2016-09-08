@@ -17,18 +17,18 @@ import Result
 class LoginViewModel {
 
   // MARK: Static
-  private static let clientId = "S8m1IOZ4TW9vLQ"
-  private static let redirectURL = "https://github.com/ivanbruel/MVVM-Benchmark"
-  private static let responseType = "code"
-  private static let duration = Duration.Permanent
-  private static let scopes: [Scope] = [.Subscribe, .Vote, .MySubreddits, .Submit, .Save, .Read,
+  fileprivate static let clientId = "S8m1IOZ4TW9vLQ"
+  fileprivate static let redirectURL = "https://github.com/ivanbruel/SwipeIt"
+  fileprivate static let responseType = "code"
+  fileprivate static let duration = Duration.Permanent
+  fileprivate static let scopes: [Scope] = [.Subscribe, .Vote, .MySubreddits, .Submit, .Save, .Read,
                                         .Report, .Identity, .Account, .Edit, .History]
   /// Show Compact page only on iPhone
-  private static var authorizePath: String = {
+  fileprivate static var authorizePath: String = {
     return Device.type() == .iPad ? "authorize" : "authorize.compact"
   }()
-  private static var scopeString: String {
-    return scopes.map { $0.rawValue }.joinWithSeparator(",")
+  fileprivate static var scopeString: String {
+    return scopes.map { $0.rawValue }.joined(separator: ",")
   }
 
   // MARK: Public Properties
@@ -44,9 +44,9 @@ class LoginViewModel {
   }
 
   // MARK: Private Properties
-  private let state = NSUUID().UUIDString
-  private let _loginResult = ReplaySubject<Result<AccessToken, LoginError>>.create(bufferSize: 1)
-  private let disposeBag = DisposeBag()
+  fileprivate let state = UUID().uuidString
+  fileprivate let _loginResult = ReplaySubject<Result<AccessToken, LoginError>>.create(bufferSize: 1)
+  fileprivate let disposeBag = DisposeBag()
 
   // MARK: Initializer
   init() {
@@ -65,12 +65,11 @@ extension LoginViewModel {
 
   // Automatic login in case we already have a valid access token
   // Or refresh the token if it has expired
-  private func reuseToken() {
+  fileprivate func reuseToken() {
     guard let accessToken = Globals.accessToken else { return }
 
     // Refresh token if it has a refreshToken and the access token is invalid
-    if let oldRefreshToken = accessToken.refreshToken
-      where !accessToken.tokenIsValid {
+    if let oldRefreshToken = accessToken.refreshToken, !accessToken.tokenIsValid {
         refreshToken(oldRefreshToken)
         return
     }
@@ -95,11 +94,11 @@ extension LoginViewModel: TitledViewModel {
 // MARK: Validation
 extension LoginViewModel {
 
-  func isRedirectURL(URLString: String) -> Bool {
+  func isRedirectURL(_ URLString: String) -> Bool {
     return URLString.hasPrefix(LoginViewModel.redirectURL)
   }
 
-  func loginWithRedirectURL(URLString: String) {
+  func loginWithRedirectURL(_ URLString: String) {
     // Checks if the redirect URL is the prefix of URLString, returns Unknown error in case it's not
     guard URLString.hasPrefix(LoginViewModel.redirectURL) else {
       _loginResult.onNext(Result(error: .Unknown))
@@ -109,8 +108,9 @@ extension LoginViewModel {
     let queryParameters = QueryReader.queryParametersFromString(URLString)
 
     // Look for state and code query parameters, if they don't exist, the user Cancelled.
-    guard let state = queryParameters["state"], code = queryParameters["code"]
-      where state == self.state else {
+    guard let state = queryParameters["state"],
+      let code = queryParameters["code"],
+      state == self.state else {
         _loginResult.onNext(Result(error: .UserCancelled))
         return
     }
@@ -119,7 +119,7 @@ extension LoginViewModel {
     getAccessToken(code)
   }
 
-  private func successfulLogin(accessToken: AccessToken) {
+  fileprivate func successfulLogin(_ accessToken: AccessToken) {
     Globals.accessToken = accessToken
     _loginResult.onNext(Result(accessToken))
   }
@@ -129,7 +129,7 @@ extension LoginViewModel {
 extension LoginViewModel {
 
   // Retrieve the access token from the OAuth API, save it in the keychain for automatic login.
-  private func getAccessToken(code: String) {
+  fileprivate func getAccessToken(_ code: String) {
     Network.request(.AccessToken(code: code, redirectURL: LoginViewModel.redirectURL,
       clientId: LoginViewModel.clientId))
       .observeOn(SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
@@ -142,7 +142,7 @@ extension LoginViewModel {
 
   // The Refresh Token request does not send a new refresh_token, therefor we need to reuse the
   // refresh token from the old AccessToken.
-  private func refreshToken(refreshToken: String) {
+  fileprivate func refreshToken(_ refreshToken: String) {
 
     let networkRequest = Network.request(.RefreshToken(refreshToken: refreshToken,
       clientId: LoginViewModel.clientId))

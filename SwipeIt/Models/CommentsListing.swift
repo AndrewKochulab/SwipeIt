@@ -22,7 +22,7 @@ struct CommentsListing: Mappable, Listing {
   // MARK: JSON
   init?(_ map: Map) { }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     mappingListing(map)
     comments <- map["data.children"]
     moreComments <- (map["data.children"], LastElementTransform())

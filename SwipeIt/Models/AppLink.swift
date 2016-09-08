@@ -11,16 +11,16 @@ import Foundation
 struct AppLink {
 
   let appName: String
-  let url: NSURL
+  let url: URL
   let appStoreId: String
 
   init?(html: String) {
     guard let parser = HTMLParser(html: html) else { return nil }
 
     guard let appName = parser.contentFromMetatag("al:ios:app_name"),
-      appStoreId = parser.contentFromMetatag("al:ios:app_store_id"),
-      urlString = parser.contentFromMetatag("al:ios:url"),
-      url = NSURL(string: urlString) else {
+      let appStoreId = parser.contentFromMetatag("al:ios:app_store_id"),
+      let urlString = parser.contentFromMetatag("al:ios:url"),
+      let url = URL(string: urlString) else {
         return nil
     }
 

@@ -24,10 +24,10 @@ extension UIView {
   @IBInspectable
   var borderColor: UIColor? {
     get {
-      return layer.borderColor.map { UIColor(CGColor: $0) }
+      return layer.borderColor.map { UIColor(cgColor: $0) }
     }
     set {
-      layer.borderColor = newValue?.CGColor
+      layer.borderColor = newValue?.cgColor
     }
   }
 
@@ -55,10 +55,10 @@ extension UIView {
   @IBInspectable
   var shadowColor: UIColor? {
     get {
-      return layer.shadowColor.map { UIColor(CGColor: $0) }
+      return layer.shadowColor.map { UIColor(cgColor: $0) }
     }
     set {
-      layer.shadowColor = newValue?.CGColor
+      layer.shadowColor = newValue?.cgColor
     }
   }
 

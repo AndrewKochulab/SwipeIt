@@ -11,15 +11,15 @@ import ObjectMapper
 
 protocol Created: Thing {
 
-  var created: NSDate! { get set }
+  var created: Date! { get set }
 
-  mutating func mappingCreated(map: Map)
+  mutating func mappingCreated(_ map: Map)
 
 }
 
 extension Created {
 
-  mutating func mappingCreated(map: Map) {
+  mutating func mappingCreated(_ map: Map) {
     mappingThing(map)
     created <- (map["data.created_utc"], EpochDateTransform())
   }

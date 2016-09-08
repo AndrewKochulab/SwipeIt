@@ -12,8 +12,8 @@ class URLRouter {
 
   static let sharedInstance = URLRouter()
 
-  func openURL(URL: NSURL) -> Bool {
-    return UIApplication.sharedApplication().openURL(URL)
+  func openURL(_ URL: Foundation.URL) -> Bool {
+    return UIApplication.shared.openURL(URL)
   }
 
 }

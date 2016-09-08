@@ -9,20 +9,20 @@
 import Foundation
 import ObjectMapper
 
-public class NilBoolTransform: TransformType {
-  public typealias Object = Bool
-  public typealias JSON = Bool
+class NilBoolTransform: TransformType {
+  typealias Object = Bool
+  typealias JSON = Bool
 
-  public init() {}
+  init() {}
 
-  public func transformFromJSON(value: AnyObject?) -> Object? {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
     guard let value = value as? Object else {
       return false
     }
     return value
   }
 
-  public func transformToJSON(value: Object?) -> JSON? {
+  func transformToJSON(_ value: Object?) -> JSON? {
     return value
   }
 }

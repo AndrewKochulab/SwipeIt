@@ -22,7 +22,7 @@ extension Array {
 
    - returns: The value in the array or nil in case it does not exist.
    */
-  func get(index: Int) -> Element? {
+  func get(_ index: Int) -> Element? {
     if 0 <= index && index < count {
       return self[index]
     } else {

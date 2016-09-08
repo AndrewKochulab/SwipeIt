@@ -12,7 +12,7 @@ import RxSwift
 
 class NetworkMock {
 
-  private static var provider = RxMoyaProvider<RedditAPI>(endpointClosure: {
+  fileprivate static var provider = RxMoyaProvider<RedditAPI>(endpointClosure: {
     target -> Endpoint<RedditAPI> in
     return Endpoint<RedditAPI>(URL: target.url,
       sampleResponseClosure: { .NetworkResponse(200, target.sampleData) },
@@ -22,7 +22,7 @@ class NetworkMock {
       httpHeaderFields: target.headers)
     }, stubClosure: MoyaProvider.ImmediatelyStub)
 
-  private static var credentialsPlugin = CredentialsPlugin { target -> NSURLCredential? in
+  fileprivate static var credentialsPlugin = CredentialsPlugin { target -> URLCredential? in
     guard let target = target as? RedditAPI else { return nil }
     return target.credentials
   }
@@ -31,7 +31,7 @@ class NetworkMock {
 // MARK: Public Methods
 extension NetworkMock {
 
-  static func request(target: RedditAPI) -> Observable<Response> {
+  static func request(_ target: RedditAPI) -> Observable<Response> {
     return provider.request(target)
   }
 }

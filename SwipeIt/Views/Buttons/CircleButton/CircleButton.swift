@@ -13,17 +13,17 @@ class CircleButton: UIButton {
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    setImage(imageForState(.Normal)?.tint(.whiteColor()), forState: .Highlighted)
-    setImage(imageForState(.Normal)?.tint(UIColor(named: .Gray)), forState: .Disabled)
+    setImage(image(for: .normal)?.tint(.white()), for: .highlighted)
+    setImage(image(for: .normal)?.tint(UIColor(named: .gray)), for: .disabled)
 
   }
 
-  override func setImage(image: UIImage?, forState state: UIControlState) {
-    if state == .Normal {
-      setImage(image?.tint(.whiteColor()), forState: .Highlighted)
-      setImage(image?.tint(UIColor(named: .Gray)), forState: .Disabled)
+  override func setImage(_ image: UIImage?, for state: UIControlState) {
+    if state == .normal {
+      setImage(image?.tint(.white()), for: .highlighted)
+      setImage(image?.tint(UIColor(named: .gray)), for: .disabled)
     }
-    super.setImage(image, forState: state)
+    super.setImage(image, for: state)
   }
 
   // MARK: - Lifecycle
@@ -32,15 +32,15 @@ class CircleButton: UIButton {
     layer.cornerRadius = min(bounds.size.height, bounds.size.width) / 2
   }
 
-  override var highlighted: Bool {
+  override var isHighlighted: Bool {
     didSet {
-      UIView.animateWithDuration(0.15) {
-        if self.highlighted {
+      UIView.animate(withDuration: 0.15, animations: {
+        if self.isHighlighted {
           self.backgroundColor = self.tintColor
         } else {
-          self.backgroundColor = .whiteColor()
+          self.backgroundColor = .white()
         }
-      }
+      }) 
     }
   }
 }

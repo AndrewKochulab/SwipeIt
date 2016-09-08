@@ -13,8 +13,8 @@ import RxSwift
 class LinkItemVideoViewModel: LinkItemViewModel {
 
   // MARK: Public Properties
-  let imageURL: NSURL?
-  let videoURL: NSURL
+  let imageURL: URL?
+  let videoURL: URL
 
   override init(user: User, accessToken: AccessToken, link: Link, showSubreddit: Bool) {
     imageURL = link.imageURL

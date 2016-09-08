@@ -10,26 +10,26 @@ import Foundation
 
 enum Vote: Int {
 
-  case Upvote = 1
-  case Downvote = -1
-  case None = 0
+  case upvote = 1
+  case downvote = -1
+  case none = 0
 
   var value: Bool? {
     switch self {
-    case .Upvote:
+    case .upvote:
       return true
-    case .Downvote:
+    case .downvote:
       return false
-    case .None:
+    case .none:
       return nil
     }
   }
 
-  static func fromBool(bool: Bool?) -> Vote {
+  static func fromBool(_ bool: Bool?) -> Vote {
     guard let bool = bool else {
-      return .None
+      return .none
     }
-    return bool ? .Upvote : .Downvote
+    return bool ? .upvote : .downvote
   }
 
 }

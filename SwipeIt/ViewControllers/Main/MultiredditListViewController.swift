@@ -15,10 +15,10 @@ import RxDataSources
 class MultiredditListViewController: UIViewController, InsettableScrollViewViewController {
 
   // MARK: Static Properties
-  private static let estimatedTableViewCellHeight: CGFloat = 60
+  fileprivate static let estimatedTableViewCellHeight: CGFloat = 60
 
   // MARK: IBOutlets
-  @IBOutlet private weak var tableView: UITableView! {
+  @IBOutlet fileprivate weak var tableView: UITableView! {
     didSet {
       tableView.estimatedRowHeight = MultiredditListViewController.estimatedTableViewCellHeight
       tableView.rowHeight = UITableViewAutomaticDimension
@@ -40,7 +40,7 @@ extension MultiredditListViewController {
     setup()
   }
 
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     tableView.deselectRows(true)
   }
@@ -49,13 +49,13 @@ extension MultiredditListViewController {
 // MARK: Setup
 extension MultiredditListViewController {
 
-  private func setup() {
+  fileprivate func setup() {
     bindTableView()
     setupInsettableScrollView(tableView)
     viewModel.requestMultireddits()
   }
 
-  private func bindTableView() {
+  fileprivate func bindTableView() {
     let dataSource =
       RxTableViewSectionedReloadDataSource<SectionViewModel<MultiredditListItemViewModel>>()
 
@@ -89,11 +89,11 @@ extension MultiredditListViewController {
 // MARK: Segues
 extension MultiredditListViewController {
 
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepareForSegue(_ segue: UIStoryboardSegue, sender: AnyObject?) {
     guard let segueEnum = StoryboardSegue.Main(optionalRawValue: segue.identifier) else { return }
 
     if let linkSwipeViewController = segue.navigationRootViewController as? LinkSwipeViewController,
-      cell = sender as? MultiredditListItemTableViewCell where segueEnum == .LinkList {
+      let cell = sender as? MultiredditListItemTableViewCell , segueEnum == .LinkList {
       linkSwipeViewController.viewModel = cell.viewModel.linkSwipeViewModel
     }
   }

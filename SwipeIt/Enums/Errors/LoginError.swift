@@ -9,12 +9,12 @@
 import Foundation
 
 // MARK: - Enum Values
-enum LoginError: ErrorType {
+enum LoginError: Error {
 
   /// User cancelled the login
-  case UserCancelled
+  case userCancelled
   /// Any other error
-  case Unknown
+  case unknown
 }
 
 // MARK: - Printable
@@ -22,10 +22,10 @@ extension LoginError: CustomStringConvertible {
 
   var description: String {
     switch self {
-    case .UserCancelled:
-      return tr(.LoginErrorUserCancelled)
-    case .Unknown:
-      return tr(.LoginErrorUnknown)
+    case .userCancelled:
+      return tr(.loginErrorUserCancelled)
+    case .unknown:
+      return tr(.loginErrorUnknown)
     }
   }
 }

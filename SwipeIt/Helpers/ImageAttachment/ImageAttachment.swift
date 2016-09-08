@@ -20,8 +20,8 @@ class ImageAttachment: NSTextAttachment {
     self.verticalOffset = verticalOffset
   }
 
-  override func attachmentBoundsForTextContainer(
-    textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect,
+  override func attachmentBounds(
+    for textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect,
     glyphPosition position: CGPoint, characterIndex charIndex: Int) -> CGRect {
     guard let image = image else { return .zero }
 

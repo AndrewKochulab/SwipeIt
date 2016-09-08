@@ -13,7 +13,7 @@ import MarkdownKit
 // MARK: Properties and initializer
 class LinkItemSelfPostViewModel: LinkItemViewModel {
 
-  private static let markdownParser =
+  fileprivate static let markdownParser =
     MarkdownParser(customElements: [MarkdownUser(), MarkdownSubreddit()])
 
   let selfText: NSAttributedString
@@ -26,7 +26,7 @@ class LinkItemSelfPostViewModel: LinkItemViewModel {
 
 extension LinkItemSelfPostViewModel {
 
-  private static func attributedSelfText(link: Link) -> NSAttributedString {
+  fileprivate static func attributedSelfText(_ link: Link) -> NSAttributedString {
     guard let selfText = link.selfText else {
       return NSAttributedString(string: "")
     }

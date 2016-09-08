@@ -9,20 +9,20 @@
 import Foundation
 import ObjectMapper
 
-public class HTMLEncodingTransform: TransformType {
-  public typealias Object = String
-  public typealias JSON = String
+class HTMLEncodingTransform: TransformType {
+  typealias Object = String
+  typealias JSON = String
 
-  public init() {}
+  init() {}
 
-  public func transformFromJSON(value: AnyObject?) -> Object? {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
     guard let value = value as? String else {
       return nil
     }
     return value.stringByDecodingHTMLEntities
   }
 
-  public func transformToJSON(value: Object?) -> String? {
+  func transformToJSON(_ value: Object?) -> String? {
     return value
   }
 }

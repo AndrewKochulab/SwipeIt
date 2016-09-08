@@ -15,14 +15,14 @@ class EmptyStringTransform: TransformType {
 
   init() {}
 
-  func transformFromJSON(value: AnyObject?) -> Object? {
-    guard let string = value as? String where string.characters.count > 0 else {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
+    guard let string = value as? String, string.characters.count > 0 else {
       return nil
     }
     return string
   }
 
-  func transformToJSON(value: Object?) -> JSON? {
+  func transformToJSON(_ value: Object?) -> JSON? {
     return value
   }
 }

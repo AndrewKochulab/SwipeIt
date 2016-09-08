@@ -9,20 +9,20 @@
 import Foundation
 import ObjectMapper
 
-public class ZeroDefaultTransform: TransformType {
-  public typealias Object = Int
-  public typealias JSON = Int
+class ZeroDefaultTransform: TransformType {
+  typealias Object = Int
+  typealias JSON = Int
 
-  public init() {}
+  init() {}
 
-  public func transformFromJSON(value: AnyObject?) -> Object? {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
     guard let value = value as? Int else {
       return 0
     }
     return value
   }
 
-  public func transformToJSON(value: Object?) -> Int? {
+  func transformToJSON(_ value: Object?) -> Int? {
     return value
   }
 }

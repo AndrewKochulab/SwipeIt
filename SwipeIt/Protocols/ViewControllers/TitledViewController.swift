@@ -11,13 +11,13 @@ import NSObject_Rx
 
 protocol TitledViewModelViewController {
 
-  func bindTitle(viewModel: TitledViewModel)
+  func bindTitle(_ viewModel: TitledViewModel)
 
 }
 
 extension TitledViewModelViewController where Self: UIViewController {
 
-  func bindTitle(viewModel: TitledViewModel) {
+  func bindTitle(_ viewModel: TitledViewModel) {
     viewModel.title
       .bindNext { [weak self] title in
       self?.title = title

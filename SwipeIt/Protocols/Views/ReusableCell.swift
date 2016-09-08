@@ -34,24 +34,24 @@ extension ReusableCell where Self: UITableViewCell {
 
 extension UICollectionView {
 
-  func dequeueReusableCell<T: UICollectionViewCell>(type: T.Type, index: Int) -> T {
-    return dequeueReusableCell(type, indexPath: NSIndexPath(forItem: index, inSection: 0))
+  func dequeueReusableCell<T: UICollectionViewCell>(_ type: T.Type, index: Int) -> T {
+    return dequeueReusableCell(type, indexPath: IndexPath(item: index, section: 0))
   }
 
-  func dequeueReusableCell<T: UICollectionViewCell>(type: T.Type, indexPath: NSIndexPath) -> T {
-    return dequeueReusableCellWithReuseIdentifier(T.className, forIndexPath: indexPath) as? T ?? T()
+  func dequeueReusableCell<T: UICollectionViewCell>(_ type: T.Type, indexPath: IndexPath) -> T {
+    return self.dequeueReusableCell(withReuseIdentifier: T.className, for: indexPath) as? T ?? T()
   }
 
 }
 
 extension UITableView {
 
-  func dequeueReusableCell<T: UITableViewCell>(type: T.Type, index: Int) -> T {
-    return dequeueReusableCell(type, indexPath: NSIndexPath(forRow: index, inSection: 0))
+  func dequeueReusableCell<T: UITableViewCell>(_ type: T.Type, index: Int) -> T {
+    return dequeueReusableCell(type, indexPath: IndexPath(row: index, section: 0))
   }
 
-  func dequeueReusableCell<T: UITableViewCell>(type: T.Type, indexPath: NSIndexPath) -> T {
-    return dequeueReusableCellWithIdentifier(T.className, forIndexPath: indexPath) as? T ?? T()
+  func dequeueReusableCell<T: UITableViewCell>(_ type: T.Type, indexPath: IndexPath) -> T {
+    return self.dequeueReusableCell(withIdentifier: T.className, for: indexPath) as? T ?? T()
   }
 
 }

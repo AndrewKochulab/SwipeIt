@@ -13,7 +13,7 @@ import WebKit
 class WebViewController: UIViewController {
 
   let webView = WKWebView()
-  let progressView: UIProgressView = UIProgressView(progressViewStyle: .Bar)
+  let progressView: UIProgressView = UIProgressView(progressViewStyle: .bar)
 
 
   override func viewDidLoad() {
@@ -22,24 +22,24 @@ class WebViewController: UIViewController {
     setupViews()
   }
 
-  func loadURL(URLString: String) {
-    guard let url = NSURL(string: URLString) else {
+  func loadURL(_ URLString: String) {
+    guard let url = URL(string: URLString) else {
       print("\(URLString) is not a valid URL string")
       return
     }
-    webView.loadRequest(NSURLRequest(URL: url))
+    webView.load(URLRequest(url: url))
   }
 }
 
 // MARK: - Setup
 extension WebViewController: WKNavigationDelegate {
 
-  private func setupViews() {
+  fileprivate func setupViews() {
     setupWebView()
     setupProgressView()
   }
 
-  private func setupWebView() {
+  fileprivate func setupWebView() {
     webView.navigationDelegate = self
     view.addSubview(webView)
     webView.snp_makeConstraints { (make) -> Void in
@@ -47,7 +47,7 @@ extension WebViewController: WKNavigationDelegate {
     }
   }
 
-  private func setupProgressView() {
+  fileprivate func setupProgressView() {
     view.addSubview(progressView)
 
     progressView.snp_makeConstraints { (make) in
@@ -76,8 +76,8 @@ extension WebViewController: WKNavigationDelegate {
 // MARK: - Animations
 extension WebViewController {
 
-  private func hideProgressView() {
-    UIView.animateWithDuration(0.3, delay: 0.5, options: [], animations: {
+  fileprivate func hideProgressView() {
+    UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
       self.progressView.alpha = 0
     }) { _ in
       self.progressView.progress = 0

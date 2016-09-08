@@ -12,10 +12,10 @@ extension String {
 
   var firstLetter: String {
     if let firstCharacter: UnicodeScalar = unicodeScalars.first {
-      if NSCharacterSet.decimalDigitCharacterSet().longCharacterIsMember(firstCharacter.value) {
+      if CharacterSet.decimalDigits.contains(UnicodeScalar(firstCharacter.value)!) {
         return "#"
       }
-      return String(firstCharacter).uppercaseString
+      return String(firstCharacter).uppercased()
     }
     return ""
   }

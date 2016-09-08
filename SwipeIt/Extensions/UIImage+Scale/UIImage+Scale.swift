@@ -11,7 +11,7 @@ import AVFoundation
 
 extension UIImage {
 
-  func scaleToSizeWithAspectFill(size: CGSize) -> UIImage {
+  func scaleToSizeWithAspectFill(_ size: CGSize) -> UIImage {
     let ratio = self.size.ratio
     let maxSize = max(size.width, size.height)
     let width = ratio > 1 ? maxSize * ratio : maxSize
@@ -19,13 +19,12 @@ extension UIImage {
     return scaleToSizeWithAspectFit(CGSize(width: width, height: height))
   }
 
-  func scaleToSizeWithAspectFit(size: CGSize) -> UIImage {
-    let scaledRect = AVMakeRectWithAspectRatioInsideRect(self.size,
-                                                         CGRect(origin: .zero, size: size))
+  func scaleToSizeWithAspectFit(_ size: CGSize) -> UIImage {
+    let scaledRect = AVMakeRect(aspectRatio: self.size, insideRect: CGRect(origin: .zero, size: size))
     UIGraphicsBeginImageContextWithOptions(size, false, 0)
-    drawInRect(scaledRect)
+    draw(in: scaledRect)
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-    return image
+    return image!
   }
 }

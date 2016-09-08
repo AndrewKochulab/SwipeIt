@@ -15,15 +15,15 @@ struct Multireddit: Mappable {
   var name: String!
   var displayName: String!
   var path: String!
-  var url: NSURL!
+  var url: URL!
   var descriptionHTML: String?
   var descriptionMarkdown: String?
   var copiedFrom: String?
   var subreddits: [String]!
-  var iconURL: NSURL?
+  var iconURL: URL?
   var editable: Bool!
   var visibility: MultiredditVisibility!
-  var created: NSDate!
+  var created: Date!
   var keyColor: String?
   var iconName: String?
 
@@ -32,7 +32,7 @@ struct Multireddit: Mappable {
   // MARK: JSON
   init?(_ map: Map) { }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     name <- map["data.name"]
     displayName <- map["data.display_name"]
     url <- (map["data.path"], PermalinkTransform())
@@ -54,19 +54,19 @@ struct Multireddit: Mappable {
 // MARK: Helpers
 extension Multireddit {
 
-  private func parseUsername() -> String? {
+  fileprivate func parseUsername() -> String? {
     do {
       let regex = try NSRegularExpression(pattern: "\(Constants.redditURL)/user/(.*)/m/",
                                           options: [])
       let path = self.url.absoluteString
       if let firstMatch = regex
-        .firstMatchInString(path, options: [],
+        .firstMatch(in: path, options: [],
                             range: NSRange(location: 0, length: path.characters.count)) {
-        let nsRange = firstMatch.rangeAtIndex(1)
-        let initialIndex = path.startIndex.advancedBy(nsRange.location)
-        let endIndex = path.startIndex.advancedBy(nsRange.location + nsRange.length)
+        let nsRange = firstMatch.rangeAt(1)
+        let initialIndex = path.characters.index(path.startIndex, offsetBy: nsRange.location)
+        let endIndex = path.characters.index(path.startIndex, offsetBy: nsRange.location + nsRange.length)
 
-        return path.substringWithRange(initialIndex..<endIndex)
+        return path.substring(with: initialIndex..<endIndex)
       }
     } catch { }
     return nil

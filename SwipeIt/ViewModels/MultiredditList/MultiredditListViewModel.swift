@@ -16,10 +16,10 @@ class MultiredditListViewModel: ViewModel {
   typealias MultiredditListSectionViewModel = SectionViewModel<MultiredditListItemViewModel>
 
   // MARK: Private Properties
-  private let user: User
-  private let accessToken: AccessToken
-  private let multireddits: Variable<[Multireddit]>
-  private let disposeBag = DisposeBag()
+  fileprivate let user: User
+  fileprivate let accessToken: AccessToken
+  fileprivate let multireddits: Variable<[Multireddit]>
+  fileprivate let disposeBag = DisposeBag()
 
   // 1. Map multireddits into their view model
   // 4. Create sections from the subreddit view models
@@ -46,11 +46,11 @@ class MultiredditListViewModel: ViewModel {
 // MARK: Private Observables
 extension MultiredditListViewModel {
 
-  private var userObservable: Observable<User> {
+  fileprivate var userObservable: Observable<User> {
     return .just(user)
   }
 
-  private var accessTokenObservable: Observable<AccessToken> {
+  fileprivate var accessTokenObservable: Observable<AccessToken> {
     return .just(accessToken)
   }
 }
@@ -73,16 +73,16 @@ extension MultiredditListViewModel {
 extension MultiredditListViewModel {
 
   // Extract first letters to create the alphabet, and create the sections afterwards
-  private class func sectionsFromMultiredditViewModels(viewModels: [MultiredditListItemViewModel])
+  fileprivate class func sectionsFromMultiredditViewModels(_ viewModels: [MultiredditListItemViewModel])
     -> [MultiredditListSectionViewModel] {
 
       return viewModels.map { $0.name.firstLetter }
         .unique()
-        .sort(Sorter.alphabetSort)
+        .sorted(by: Sorter.alphabetSort)
         .map { letter in
           let viewModels = viewModels
             .filter { $0.name.firstLetter == letter }
-            .sort { $0.0.name < $0.1.name }
+            .sorted { $0.0.name < $0.1.name }
           return SectionViewModel(title: letter, viewModels: viewModels)
       }
   }

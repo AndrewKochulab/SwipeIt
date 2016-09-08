@@ -10,11 +10,11 @@ import Foundation
 
 extension String {
 
-  func matchesWithRegex(pattern: String) -> Bool {
-    return rangeOfString(pattern, options: .RegularExpressionSearch) != nil
+  func matchesWithRegex(_ pattern: String) -> Bool {
+    return range(of: pattern, options: .regularExpression) != nil
   }
 
-  func regexMatches(pattern: String) -> [NSTextCheckingResult] {
+  func regexMatches(_ pattern: String) -> [NSTextCheckingResult] {
     let regex: NSRegularExpression
     do {
       regex = try NSRegularExpression(pattern: pattern, options: [])
@@ -22,7 +22,7 @@ extension String {
       return []
     }
 
-    return regex.matchesInString(self, options: [],
+    return regex.matches(in: self, options: [],
                                         range: NSRange(location: 0, length: self.utf16.count))
   }
 }

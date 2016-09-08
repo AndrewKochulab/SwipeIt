@@ -25,7 +25,7 @@ struct PreviewImage: Mappable {
   // MARK: JSON
   init?(_ map: Map) { }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     identifier <- map["id"]
     source <- map["source"]
     resolutions <- map["resolutions"]

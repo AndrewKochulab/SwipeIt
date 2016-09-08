@@ -24,7 +24,7 @@ struct SubredditListing: Mappable, Listing {
     guard let _ = map.JSONDictionary["data"] else { return nil }
   }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     mappingListing(map)
     subreddits <- map["data.children"]
   }

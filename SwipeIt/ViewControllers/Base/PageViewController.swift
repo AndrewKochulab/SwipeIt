@@ -14,21 +14,21 @@ import RxCocoa
 public protocol PageViewControllerDelegate {
 
   // Called when the view controller changes to another page
-  func pageViewController(pageViewController: PageViewController, didTransitionToIndex: Int)
+  func pageViewController(_ pageViewController: PageViewController, didTransitionToIndex: Int)
 
   // Called when the view controller prepares for a segue, to allow parent view controller to inject
   // properties into child view controller
-  func pageViewController(pageViewController: PageViewController,
+  func pageViewController(_ pageViewController: PageViewController,
                           prepareForSegue segue: UIStoryboardSegue, sender: AnyObject?)
 
 }
 
-public class PageViewController: UIPageViewController {
+open class PageViewController: UIPageViewController {
 
   // Dynamic so it can be observable
-  private dynamic var _selectedIndex: Int = 0
+  fileprivate dynamic var _selectedIndex: Int = 0
 
-  public var selectedIndex: Int {
+  open var selectedIndex: Int {
     get {
       return _selectedIndex
     }
@@ -37,13 +37,13 @@ public class PageViewController: UIPageViewController {
     }
   }
 
-  public var pageViewControllers: [UIViewController] = []
+  open var pageViewControllers: [UIViewController] = []
 
-  public var pageViewControllerDelegate: PageViewControllerDelegate?
+  open var pageViewControllerDelegate: PageViewControllerDelegate?
 
   override init(transitionStyle style: UIPageViewControllerTransitionStyle,
                                 navigationOrientation: UIPageViewControllerNavigationOrientation,
-                                options: [String : AnyObject]?) {
+                                options: [String : Any]?) {
 
     super.init(transitionStyle: style, navigationOrientation: navigationOrientation,
                options: options)
@@ -55,12 +55,12 @@ public class PageViewController: UIPageViewController {
     commonSetup()
   }
 
-  private func commonSetup() {
+  fileprivate func commonSetup() {
     self.dataSource = self
     self.delegate = self
   }
 
-  public override func viewDidLoad() {
+  open override func viewDidLoad() {
     super.viewDidLoad()
     performPageSegues()
   }
@@ -69,25 +69,25 @@ public class PageViewController: UIPageViewController {
   // storyboardSegueTemplates has a property named segueClassName which contains the mangled name
   // for the Segue's class e.g. 't3gdxPageSegue'; it also has the identifier property to perform
   // the segue with identifier call.
-  private func performPageSegues() {
-    guard let segueTemplates = valueForKey("storyboardSegueTemplates") as? [AnyObject] else {
+  fileprivate func performPageSegues() {
+    guard let segueTemplates = value(forKey: "storyboardSegueTemplates") as? [AnyObject] else {
       return
     }
 
     segueTemplates
       .filter {
-        ($0.valueForKey("segueClassName") as? String)?.containsString("PageSegue") ?? false
-      }.flatMap { $0.valueForKey("identifier") as? String }
-      .forEach { self.performSegueWithIdentifier($0, sender: nil) }
+        ($0.value(forKey: "segueClassName") as? String)?.contains("PageSegue") ?? false
+      }.flatMap { $0.value(forKey: "identifier") as? String }
+      .forEach { self.performSegue(withIdentifier: $0, sender: nil) }
   }
 
-  public func setSelectedIndex(index: Int, animated: Bool) {
+  open func setSelectedIndex(_ index: Int, animated: Bool) {
     guard index < pageViewControllers.count else {
       return
     }
     let viewController = pageViewControllers[index]
     setViewControllers([viewController],
-                       direction: (index > _selectedIndex ? .Forward : .Reverse),
+                       direction: (index > _selectedIndex ? .forward : .reverse),
                        animated: animated, completion: nil)
   }
 
@@ -96,13 +96,13 @@ public class PageViewController: UIPageViewController {
 // MARK: UIPageViewControllerDelegate,
 extension PageViewController: UIPageViewControllerDelegate {
 
-  public func pageViewController(pageViewController: UIPageViewController,
+  public func pageViewController(_ pageViewController: UIPageViewController,
                                  didFinishAnimating finished: Bool,
                                                     previousViewControllers: [UIViewController],
                                                     transitionCompleted completed: Bool) {
     guard let viewController = pageViewController.viewControllers?.last,
-      index = pageViewControllers.indexOf(viewController)
-      where finished && completed else {
+      let index = pageViewControllers.index(of: viewController)
+      , finished && completed else {
         return
     }
     _selectedIndex = index
@@ -114,19 +114,19 @@ extension PageViewController: UIPageViewControllerDelegate {
 extension PageViewController: UIPageViewControllerDataSource {
 
   public func pageViewController(
-    pageViewController: UIPageViewController,
-    viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-    guard let index = pageViewControllers.indexOf(viewController) where index - 1 >= 0 else {
+    _ pageViewController: UIPageViewController,
+    viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    guard let index = pageViewControllers.index(of: viewController) , index - 1 >= 0 else {
       return nil
     }
     return pageViewControllers[index - 1]
   }
 
-  public func pageViewController(pageViewController: UIPageViewController,
-                                 viewControllerAfterViewController viewController: UIViewController)
+  public func pageViewController(_ pageViewController: UIPageViewController,
+                                 viewControllerAfter viewController: UIViewController)
     -> UIViewController? {
-      guard let index = pageViewControllers.indexOf(viewController)
-        where index + 1 < pageViewControllers.count else {
+      guard let index = pageViewControllers.index(of: viewController)
+        , index + 1 < pageViewControllers.count else {
           return nil
       }
       return pageViewControllers[index + 1]
@@ -137,8 +137,8 @@ extension PageViewController: UIPageViewControllerDataSource {
 // MARK: Segue
 extension PageViewController {
 
-  override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    pageViewControllerDelegate?.pageViewController(self, prepareForSegue: segue, sender: sender)
+  override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    pageViewControllerDelegate?.pageViewController(self, prepareForSegue: segue, sender: sender as AnyObject?)
   }
 
 }
@@ -165,7 +165,7 @@ extension PageViewController {
 }
 
 // MARK: PageSegue
-public class PageSegue: UIStoryboardSegue {
+open class PageSegue: UIStoryboardSegue {
 
   override init(identifier: String?, source: UIViewController, destination: UIViewController) {
     super.init(identifier: identifier, source: source, destination: destination)
@@ -177,5 +177,5 @@ public class PageSegue: UIStoryboardSegue {
     }
   }
 
-  override public func perform() { }
+  override open func perform() { }
 }

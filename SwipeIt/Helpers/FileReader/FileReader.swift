@@ -10,11 +10,11 @@ import Foundation
 
 class FileReader {
 
-  class func readFileData(filename: String, fileExtension: String) -> NSData {
-    if let path = NSBundle(forClass: self).pathForResource(filename, ofType: fileExtension) {
+  class func readFileData(_ filename: String, fileExtension: String) -> Data {
+    if let path = Bundle(for: self).path(forResource: filename, ofType: fileExtension) {
       do {
-        let data = try NSData(contentsOfURL: NSURL(fileURLWithPath: path),
-                              options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        let data = try Data(contentsOf: URL(fileURLWithPath: path),
+                              options: Data.ReadingOptions.mappedIfSafe)
         return data
       } catch let error as NSError {
         print(error.localizedDescription)
@@ -22,11 +22,11 @@ class FileReader {
     } else {
       print("Could not find file: \(filename).\(fileExtension)")
     }
-    return NSData()
+    return Data()
   }
 
-  class func readFileString(filename: String, fileExtension: String) -> String {
+  class func readFileString(_ filename: String, fileExtension: String) -> String {
     return String(data: readFileData(filename, fileExtension: fileExtension),
-                  encoding: NSUTF8StringEncoding) ?? ""
+                  encoding: String.Encoding.utf8) ?? ""
   }
 }

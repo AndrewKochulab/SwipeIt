@@ -11,10 +11,10 @@ import Kingfisher
 
 class Prefetcher {
 
-  private var imagePrefetcher: ImagePrefetcher!
-  private let completion: ((UIImage?) -> Void)?
+  fileprivate var imagePrefetcher: ImagePrefetcher!
+  fileprivate let completion: ((UIImage?) -> Void)?
 
-  init(imageURL: NSURL, completion: ((UIImage?) -> Void)?) {
+  init(imageURL: URL, completion: ((UIImage?) -> Void)?) {
     self.completion = completion
     imagePrefetcher = ImagePrefetcher(urls: [imageURL]) {
       [weak self] (skippedResources, _, completedResources) in

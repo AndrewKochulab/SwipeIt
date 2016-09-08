@@ -22,8 +22,8 @@ class SubscriptionsViewModel {
   }
 
   // MARK: Private Properties
-  private let user: User
-  private let accessToken: AccessToken
+  fileprivate let user: User
+  fileprivate let accessToken: AccessToken
 
   // MARK: Initializer
   init(user: User, accessToken: AccessToken) {

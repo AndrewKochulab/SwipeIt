@@ -10,23 +10,23 @@ import Foundation
 import ObjectMapper
 
 class NowDateTransform: TransformType {
-  typealias Object = NSDate
+  typealias Object = Date
   typealias JSON = Int
 
-  private let now: NSDate
+  fileprivate let now: Date
 
-  init(now: NSDate) {
+  init(now: Date) {
     self.now = now
   }
 
-  func transformFromJSON(value: AnyObject?) -> Object? {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
     guard let value = value as? Int else {
       return nil
     }
-    return now.dateByAddingTimeInterval(Double(value))
+    return now.addingTimeInterval(Double(value))
   }
 
-  func transformToJSON(value: Object?) -> JSON? {
-    return value.flatMap { Int($0.timeIntervalSinceDate(now)) }
+  func transformToJSON(_ value: Object?) -> JSON? {
+    return value.flatMap { Int($0.timeIntervalSince(now)) }
   }
 }

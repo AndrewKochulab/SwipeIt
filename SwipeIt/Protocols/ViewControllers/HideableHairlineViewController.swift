@@ -18,14 +18,14 @@ protocol HideableHairlineViewController {
 extension HideableHairlineViewController where Self: UIViewController {
 
   func hideHairline() {
-    findHairline()?.hidden = true
+    findHairline()?.isHidden = true
   }
 
   func showHairline() {
-    findHairline()?.hidden = false
+    findHairline()?.isHidden = false
   }
 
-  private func findHairline() -> UIImageView? {
+  fileprivate func findHairline() -> UIImageView? {
     return navigationController?.navigationBar.subviews
       .flatMap { (view: UIView) -> [UIView] in view.subviews }
       .flatMap { (view: UIView) -> UIImageView? in view as? UIImageView }

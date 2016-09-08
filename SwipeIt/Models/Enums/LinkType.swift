@@ -10,44 +10,44 @@ import Foundation
 
 enum LinkType: Equatable {
 
-  case Video
-  case Image
-  case GIF
-  case Album
-  case SelfPost
-  case LinkPost
+  case video
+  case image
+  case gif
+  case album
+  case selfPost
+  case linkPost
 }
 
 extension LinkType {
 
-  static func typeFromLink(link: Link) -> LinkType {
+  static func typeFromLink(_ link: Link) -> LinkType {
     if link.selfPost == true && link.selfText != nil {
-      return .SelfPost
+      return .selfPost
     } else if link.media?.type == "video" {
-      return .Video
+      return .video
     } else if link.media?.type == "rich" {
-      return .Album
+      return .album
     } else if link.imageURL != nil {
-      return link.imageURL?.pathExtension == "gif" ? .GIF : .Image
+      return link.imageURL?.pathExtension == "gif" ? .gif : .image
     } else {
-      return .LinkPost
+      return .linkPost
     }
   }
 }
 
 func == (lhs: LinkType, rhs: LinkType) -> Bool {
   switch (lhs, rhs) {
-  case (.Video, .Video):
+  case (.video, .video):
     return true
-  case (.Image, .Image):
+  case (.image, .image):
     return true
-  case (.Album, .Album):
+  case (.album, .album):
     return true
-  case (.SelfPost, .SelfPost):
+  case (.selfPost, .selfPost):
     return true
-  case (.LinkPost, .LinkPost):
+  case (.linkPost, .linkPost):
     return true
-  case (.GIF, .GIF):
+  case (.gif, .gif):
     return true
   default:
     return false

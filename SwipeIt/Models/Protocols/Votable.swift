@@ -16,12 +16,12 @@ protocol Votable: Created {
   var vote: Vote! { get set }
   var score: Int! { get set }
 
-  mutating func mappingVotable(map: Map)
+  mutating func mappingVotable(_ map: Map)
 }
 
 extension Votable {
 
-  mutating func mappingVotable(map: Map) {
+  mutating func mappingVotable(_ map: Map) {
     mappingCreated(map)
     ups <- map["data.ups"]
     downs <- map["data.downs"]

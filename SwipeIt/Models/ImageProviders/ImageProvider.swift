@@ -10,5 +10,5 @@ import Foundation
 
 protocol ImageProvider {
 
-  static func imageURLFromLink(link: Link) -> NSURL?
+  static func imageURLFromLink(_ link: Link) -> URL?
 }

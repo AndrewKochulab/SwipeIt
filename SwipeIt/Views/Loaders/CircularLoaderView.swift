@@ -21,9 +21,9 @@ import UIKit
     }
   }
 
-  @IBInspectable var emptyLineColor: UIColor = UIColor.lightGrayColor() {
+  @IBInspectable var emptyLineColor: UIColor = UIColor.lightGray {
     didSet {
-      layer.borderColor = emptyLineColor.CGColor
+      layer.borderColor = emptyLineColor.cgColor
     }
   }
 
@@ -69,18 +69,18 @@ import UIKit
   }
 
   // MARK: - Private Functions
-  private func commonInit() {
-    opaque = false
-    backgroundColor = .clearColor()
-    progressLayer.contentsScale = UIScreen.mainScreen().scale
+  fileprivate func commonInit() {
+    isOpaque = false
+    backgroundColor = .clear()
+    progressLayer.contentsScale = UIScreen.main.scale
     progressLayer.progressLineWidth = 4
   }
 
-  private var progressLayer: CircularLoaderLayer {
+  fileprivate var progressLayer: CircularLoaderLayer {
     return layer as! CircularLoaderLayer // swiftlint:disable:this force_cast
   }
 
-  func setProgress(progress: Float, animated: Bool) {
+  func setProgress(_ progress: Float, animated: Bool) {
     progressLayer.animated = animated
     progressLayer.removeAllAnimations()
     progressLayer.progress = CGFloat(progress)
@@ -98,7 +98,7 @@ extension CircularLoaderView {
     layer.cornerRadius = bounds.height / 2
   }
 
-  override class func layerClass() -> AnyClass {
+  override class var layerClass : AnyClass {
     return CircularLoaderLayer.self
   }
 }
@@ -112,48 +112,48 @@ private class CircularLoaderLayer: CALayer {
   @NSManaged var progressLineWidth: CGFloat
   @NSManaged var progressLineColor: UIColor
 
-  override func drawInContext(context: CGContext) {
-    super.drawInContext(context)
+  override func draw(in context: CGContext) {
+    super.draw(in: context)
 
     UIGraphicsPushContext(context)
 
-    let size = CGContextGetClipBoundingBox(context).integral.size
+    let size = context.boundingBoxOfClipPath.integral.size
     drawProgressBar(size, context: context)
 
     UIGraphicsPopContext()
   }
 
 
-  private func drawProgressBar(size: CGSize, context: CGContext) {
+  fileprivate func drawProgressBar(_ size: CGSize, context: CGContext) {
     guard progressLineWidth > 0  else { return }
 
-    let arc = CGPathCreateMutable()
+    let arc = CGMutablePath()
     let initialValue = -CGFloat(M_PI_2)
     let angle = ((CGFloat(M_PI) * 2) * progress) + initialValue
 
     CGPathAddArc(arc, nil, size.width / 2, size.height / 2,
                  (min(size.width, size.height) / 2) - emptyLineWidth - (progressLineWidth / 2),
                  angle, initialValue, true)
-    let strokedArc = CGPathCreateCopyByStrokingPath(arc, nil, progressLineWidth, .Butt, .Miter, 10)
-    CGContextAddPath(context, strokedArc)
-    CGContextSetStrokeColorWithColor(context, progressLineColor.CGColor)
-    CGContextSetFillColorWithColor(context, progressLineColor.CGColor)
-    CGContextDrawPath(context, .FillStroke)
+    let strokedArc = CGPath(__byStroking: arc, transform: nil, lineWidth: progressLineWidth, lineCap: .butt, lineJoin: .miter, miterLimit: 10)
+    context.addPath(strokedArc!)
+    context.setStrokeColor(progressLineColor.cgColor)
+    context.setFillColor(progressLineColor.cgColor)
+    context.drawPath(using: .fillStroke)
   }
 
-  override class func needsDisplayForKey(key: String) -> Bool {
+  override class func needsDisplay(forKey key: String) -> Bool {
     guard key == "progress" else {
-      return super.needsDisplayForKey(key)
+      return super.needsDisplay(forKey: key)
     }
     return true
   }
 
-  override func actionForKey(event: String) -> CAAction? {
-    guard let presentationLayer = presentationLayer() where event == "progress" && animated else {
-      return super.actionForKey(event)
+  override func action(forKey event: String) -> CAAction? {
+    guard let presentationLayer = presentation() , event == "progress" && animated else {
+      return super.action(forKey: event)
     }
     let animation = CABasicAnimation(keyPath: "progress")
-    animation.fromValue = presentationLayer.valueForKey("progress")
+    animation.fromValue = presentationLayer.value(forKey: "progress")
     return animation
   }
 

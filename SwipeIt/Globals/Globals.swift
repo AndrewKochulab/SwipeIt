@@ -14,8 +14,8 @@ import ObjectMapper
 // MARK: Generic
 class Globals {
 
-  private static let userDefaults = NSUserDefaults.userDefaults
-  private static let keychain = KeychainSwift()
+  fileprivate static let userDefaults = UserDefaults.userDefaults
+  fileprivate static let keychain = KeychainSwift()
 
 }
 
@@ -28,7 +28,7 @@ extension Globals {
       return Mapper<AccessToken>().map(jsonString)
     }
     set {
-      if let accessToken = newValue, jsonString = accessToken.toJSONString() {
+      if let accessToken = newValue, let jsonString = accessToken.toJSONString() {
         keychain.set(jsonString, forKey: "accessToken")
       } else {
         keychain.delete("accessToken")
@@ -42,31 +42,31 @@ extension Globals {
 
   static var hideVotedPosts: Bool {
     get {
-      return userDefaults.boolForKey("hideVotedPosts")
+      return userDefaults.bool(forKey: "hideVotedPosts")
     }
     set {
-      userDefaults.setBool(newValue, forKey: "hideVotedPosts")
+      userDefaults.set(newValue, forKey: "hideVotedPosts")
     }
   }
 
   static var selfPostNumberOfLines: Int {
     get {
-      return userDefaults.objectForKey("selfPostNumberOfLines") as? Int ?? 5
+      return userDefaults.object(forKey: "selfPostNumberOfLines") as? Int ?? 5
     }
     set {
-      userDefaults.setInteger(newValue, forKey: "selfPostNumberOfLines")
+      userDefaults.set(newValue, forKey: "selfPostNumberOfLines")
     }
   }
 
   static var theme: Theme? {
     get {
-      return Theme(optionalRawValue: userDefaults.stringForKey("theme"))
+      return Theme(rawValue: userDefaults.string(forKey: "theme"))
     }
     set {
       if let theme = newValue {
-        userDefaults.setObject(theme.rawValue, forKey: "theme")
+        userDefaults.set(theme.rawValue, forKey: "theme")
       } else {
-        userDefaults.removeObjectForKey("theme")
+        userDefaults.removeObject(forKey: "theme")
       }
     }
   }

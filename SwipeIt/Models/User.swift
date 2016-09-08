@@ -17,7 +17,7 @@ struct User: Mappable, Created {
   var kind: String!
 
   // MARK: Created
-  var created: NSDate!
+  var created: Date!
 
   // MARK: User
   var username: String!
@@ -38,12 +38,12 @@ struct User: Mappable, Created {
     }
   }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     mappingCreated(map)
     mappingUser(map)
   }
 
-  private mutating func mappingUser(map: Map) {
+  fileprivate mutating func mappingUser(_ map: Map) {
     username <- map["data.name"]
     commentKarma <- map["data.comment_karma"]
     linkKarma <- map["data.link_karma"]

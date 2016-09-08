@@ -12,25 +12,25 @@ import Foundation
 enum LoadingState: Equatable {
 
   /// Content is available and not loading any content
-  case Normal
+  case normal
   /// No Content is available
-  case Empty
+  case empty
   /// Got an error loading content
-  case Error
+  case error
   /// Is loading content
-  case Loading
+  case loading
 }
 
 // MARK: - Equatable
 func == (lhs: LoadingState, rhs: LoadingState) -> Bool {
   switch (lhs, rhs) {
-  case (.Normal, .Normal):
+  case (.normal, .normal):
     return true
-  case (.Empty, .Empty):
+  case (.empty, .empty):
     return true
-  case (.Error, .Error):
+  case (.error, .error):
     return true
-  case (.Loading, .Loading):
+  case (.loading, .loading):
     return true
   default:
     return false

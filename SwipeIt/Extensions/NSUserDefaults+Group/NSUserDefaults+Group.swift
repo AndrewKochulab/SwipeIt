@@ -8,13 +8,13 @@
 
 import Foundation
 
-extension NSUserDefaults {
+extension UserDefaults {
 
   /// The suite name for the app group
-  private static let suiteName = "group.vc.faber.Reddit"
+  fileprivate static let suiteName = "group.ios.ivanbruel.SwipeIt"
 
   /// Accessor to the suite's NSUserDefaults
-  static var userDefaults: NSUserDefaults {
-    return NSUserDefaults(suiteName: suiteName) ?? .standardUserDefaults()
+  static var userDefaults: UserDefaults {
+    return UserDefaults(suiteName: suiteName) ?? .standard()
   }
 }

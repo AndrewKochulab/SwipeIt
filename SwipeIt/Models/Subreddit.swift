@@ -17,15 +17,15 @@ struct Subreddit: Mappable, Created {
   var kind: String!
 
   // MARK: Created
-  var created: NSDate!
+  var created: Date!
 
   // MARK: Subreddit
-  var bannerImage: NSURL?
+  var bannerImage: URL?
   var submitTextHTML: String?
   var wikiEnabled: Bool!
   var submitText: String?
   var displayName: String!
-  var headerImage: NSURL?
+  var headerImage: URL?
   var descriptionHTML: String?
   var title: String!
   var collapseDeletedComments: Bool!
@@ -35,7 +35,7 @@ struct Subreddit: Mappable, Created {
   var iconWidth: Int?
   var iconHeight: Int?
   var suggestedCommentSort: String?
-  var iconImage: NSURL?
+  var iconImage: URL?
   var headerTitle: String?
   var description: String?
   var submitLinkLabel: String?
@@ -47,7 +47,7 @@ struct Subreddit: Mappable, Created {
   var submitTextLabel: String?
   var language: String!
   var keyColor: String?
-  var url: NSURL!
+  var url: URL!
   var path: String!
   var quarantine: Bool!
   var hideAds: Bool!
@@ -68,13 +68,13 @@ struct Subreddit: Mappable, Created {
   // MARK: JSON
   init?(_ map: Map) { }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     mappingCreated(map)
     mappingSubreddit(map)
     mappingUser(map)
   }
 
-  private mutating func mappingSubreddit(map: Map) {
+  fileprivate mutating func mappingSubreddit(_ map: Map) {
     bannerImage <- (map["data.banner_img"], EmptyURLTransform())
     submitTextHTML <- (map["data.submit_text_html"], EmptyStringTransform())
     wikiEnabled <- map["data.wiki_enabled"]
@@ -113,7 +113,7 @@ struct Subreddit: Mappable, Created {
     submissionType <- map["data.submission_type"]
   }
 
-  private mutating func mappingUser(map: Map) {
+  fileprivate mutating func mappingUser(_ map: Map) {
     userIsSubscriber <- map["data.user_is_subscriber"]
     userIsModerator <- map["data.user_is_moderator"]
     userSubredditThemeEnabled <- map["data.user_sr_theme_enabled"]

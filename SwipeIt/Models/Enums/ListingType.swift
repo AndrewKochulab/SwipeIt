@@ -10,26 +10,26 @@ import Foundation
 
 enum ListingType: Equatable {
 
-  case Hot
-  case New
-  case Rising
-  case Controversial(range: ListingTypeRange)
-  case Top(range: ListingTypeRange)
-  case Gilded
+  case hot
+  case new
+  case rising
+  case controversial(range: ListingTypeRange)
+  case top(range: ListingTypeRange)
+  case gilded
 
   var path: String {
     switch self {
-    case .Hot:
+    case .hot:
       return "hot"
-    case .New:
+    case .new:
       return "new"
-    case .Rising:
+    case .rising:
       return "rising"
-    case .Controversial:
+    case .controversial:
       return "controversial"
-    case .Top:
+    case .top:
       return "top"
-    case .Gilded:
+    case .gilded:
       return "gilded"
     }
   }
@@ -38,9 +38,9 @@ enum ListingType: Equatable {
 
   var range: ListingTypeRange? {
     switch self {
-    case .Controversial(let range):
+    case .controversial(let range):
       return range
-    case .Top(let range):
+    case .top(let range):
       return range
     default:
       return nil
@@ -49,24 +49,24 @@ enum ListingType: Equatable {
 
 
 
-  static func typeAtIndex(index: Int, range: ListingTypeRange? = nil) -> ListingType? {
+  static func typeAtIndex(_ index: Int, range: ListingTypeRange? = nil) -> ListingType? {
     switch index {
     case 0:
-      return .Hot
+      return .hot
     case 1:
-      return .New
+      return .new
     case 2:
-      return .Rising
+      return .rising
     case 3:
       guard let range = range else { return nil }
-      return .Controversial(range: range)
+      return .controversial(range: range)
     case 4:
       guard let range = range else { return nil }
-      return .Top(range: range)
+      return .top(range: range)
     case 5:
-      return .Gilded
+      return .gilded
     default:
-      return .Hot
+      return .hot
     }
   }
 
@@ -84,7 +84,7 @@ enum ListingTypeRange: String {
     return [.Hour, .Day, .Week, .Month, .Year, .AllTime]
   }
 
-  static func rangeAtIndex(index: Int) -> ListingTypeRange? {
+  static func rangeAtIndex(_ index: Int) -> ListingTypeRange? {
     return ranges.get(index)
   }
 }
@@ -92,17 +92,17 @@ enum ListingTypeRange: String {
 
 func == (lhs: ListingType, rhs: ListingType) -> Bool {
   switch (lhs, rhs) {
-  case (.Hot, .Hot):
+  case (.hot, .hot):
     return true
-  case (.New, .New):
+  case (.new, .new):
     return true
-  case (.Rising, .Rising):
+  case (.rising, .rising):
     return true
-  case (.Controversial(let lhsRange), .Controversial(let rhsRange)):
+  case (.controversial(let lhsRange), .controversial(let rhsRange)):
     return lhsRange == rhsRange
-  case (.Top(let lhsRange), .Top(let rhsRange)):
+  case (.top(let lhsRange), .top(let rhsRange)):
     return lhsRange == rhsRange
-  case (.Gilded, .Gilded):
+  case (.gilded, .gilded):
     return true
   default:
     return false

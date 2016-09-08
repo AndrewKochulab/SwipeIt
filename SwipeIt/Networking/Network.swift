@@ -12,7 +12,7 @@ import RxSwift
 
 class Network {
 
-  private static var provider = RxMoyaProvider<RedditAPI>(endpointClosure: {
+  fileprivate static var provider = RxMoyaProvider<RedditAPI>(endpointClosure: {
     target -> Endpoint<RedditAPI> in
     return Endpoint<RedditAPI>(URL: target.url,
       sampleResponseClosure: { .NetworkResponse(200, target.sampleData) },
@@ -25,7 +25,7 @@ class Network {
       credentialsPlugin
     ])
 
-  private static var credentialsPlugin = CredentialsPlugin { target -> NSURLCredential? in
+  fileprivate static var credentialsPlugin = CredentialsPlugin { target -> URLCredential? in
     guard let target = target as? RedditAPI else { return nil }
     return target.credentials
   }
@@ -34,7 +34,7 @@ class Network {
 // MARK: Public Methods
 extension Network {
 
-  static func request(target: RedditAPI) -> Observable<Response> {
+  static func request(_ target: RedditAPI) -> Observable<Response> {
     return provider.request(target)
   }
 }

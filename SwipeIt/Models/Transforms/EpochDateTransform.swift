@@ -10,19 +10,19 @@ import Foundation
 import ObjectMapper
 
 class EpochDateTransform: TransformType {
-  typealias Object = NSDate
+  typealias Object = Date
   typealias JSON = Int
 
   init() {}
 
-  func transformFromJSON(value: AnyObject?) -> Object? {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
     guard let value = value as? Int else {
       return nil
     }
-    return NSDate(timeIntervalSince1970: Double(value))
+    return Date(timeIntervalSince1970: Double(value))
   }
 
-  func transformToJSON(value: Object?) -> JSON? {
+  func transformToJSON(_ value: Object?) -> JSON? {
     return value.flatMap { Int($0.timeIntervalSince1970) }
   }
 }

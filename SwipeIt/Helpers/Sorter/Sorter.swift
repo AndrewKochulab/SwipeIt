@@ -11,7 +11,7 @@ import Foundation
 class Sorter {
 
   // Numbers should always come first
-  class func alphabetSort(firstLetter: String, secondLetter: String) -> Bool {
+  class func alphabetSort(_ firstLetter: String, secondLetter: String) -> Bool {
     if firstLetter == "#" {
       return true
     } else if secondLetter == "#" {

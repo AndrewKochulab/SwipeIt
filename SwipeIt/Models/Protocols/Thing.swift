@@ -15,13 +15,13 @@ protocol Thing {
   var name: String! { get set }
   var kind: String! { get set }
 
-  mutating func mappingThing(map: Map)
+  mutating func mappingThing(_ map: Map)
 
 }
 
 extension Thing {
 
-  mutating func mappingThing(map: Map) {
+  mutating func mappingThing(_ map: Map) {
     identifier <- map["data.id"]
     name <- map["data.name"]
     kind <- map["kind"]

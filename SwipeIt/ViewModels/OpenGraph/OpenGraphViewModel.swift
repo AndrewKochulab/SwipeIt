@@ -14,11 +14,11 @@ import RxAlamofire
 
 class OpenGraphViewModel: ViewModel {
 
-  private static let facebookBotUserAgent = "Facebot"
+  fileprivate static let facebookBotUserAgent = "Facebot"
 
-  private let openGraph: Variable<OpenGraph?> = Variable(nil)
-  private let url: NSURL
-  private let disposeBag = DisposeBag()
+  fileprivate let openGraph: Variable<OpenGraph?> = Variable(nil)
+  fileprivate let url: URL
+  fileprivate let disposeBag = DisposeBag()
 
   var imageURL: Observable<NSURL?> {
     return openGraph.asObservable().map { $0?.imageURL }
@@ -36,7 +36,7 @@ class OpenGraphViewModel: ViewModel {
     return openGraph.asObservable().map { $0?.appLink?.url }
   }
 
-  init(url: NSURL) {
+  init(url: URL) {
     self.url = url
   }
 }

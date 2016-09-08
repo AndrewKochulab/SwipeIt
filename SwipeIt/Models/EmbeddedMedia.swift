@@ -24,7 +24,7 @@ struct EmbeddedMedia: Mappable {
     }
   }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     content <- map["content"]
     scrolling <- map["scrolling"]
     width <- map["width"]

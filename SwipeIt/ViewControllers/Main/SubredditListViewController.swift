@@ -15,7 +15,7 @@ import RxDataSources
 class SubredditListViewController: UIViewController, InsettableScrollViewViewController {
 
   // MARK: IBOutlets
-  @IBOutlet private weak var tableView: UITableView!
+  @IBOutlet fileprivate weak var tableView: UITableView!
 
   // MARK: Public Properties
   var viewModel: SubredditListViewModel!
@@ -32,7 +32,7 @@ extension SubredditListViewController {
     setup()
   }
 
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     tableView.deselectRows(true)
   }
@@ -41,13 +41,13 @@ extension SubredditListViewController {
 // MARK: Setup
 extension SubredditListViewController {
 
-  private func setup() {
+  fileprivate func setup() {
     bindTableView()
     setupInsettableScrollView(tableView)
     viewModel.requestAllSubreddits()
   }
 
-  private func bindTableView() {
+  fileprivate func bindTableView() {
     let dataSource =
       RxTableViewSectionedReloadDataSource<SectionViewModel<SubredditListItemViewModel>>()
 
@@ -80,11 +80,11 @@ extension SubredditListViewController {
 // MARK: Segues
 extension SubredditListViewController {
 
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     guard let segueEnum = StoryboardSegue.Main(optionalRawValue: segue.identifier) else { return }
 
     if let linkSwipeViewController = segue.navigationRootViewController as? LinkSwipeViewController,
-      cell = sender as? SubredditListItemTableViewCell where segueEnum == .LinkList {
+      let cell = sender as? SubredditListItemTableViewCell , segueEnum == .LinkList {
       linkSwipeViewController.viewModel = cell.viewModel.linkSwipeViewModel
     }
   }

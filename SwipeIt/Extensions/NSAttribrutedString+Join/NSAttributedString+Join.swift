@@ -8,22 +8,22 @@
 
 import Foundation
 
-extension SequenceType where Generator.Element: NSAttributedString {
-  func joinWithSeparator(separator: NSAttributedString) -> NSAttributedString {
+extension Sequence where Iterator.Element: NSAttributedString {
+  func joinWithSeparator(_ separator: NSAttributedString) -> NSAttributedString {
     var isFirst = true
     return self.reduce(NSMutableAttributedString()) {
       (r, e) in
       if isFirst {
         isFirst = false
       } else {
-        r.appendAttributedString(separator)
+        r.append(separator)
       }
-      r.appendAttributedString(e)
+      r.append(e)
       return r
     }
   }
 
-  func joinWithSeparator(separator: String) -> NSAttributedString {
+  func joinWithSeparator(_ separator: String) -> NSAttributedString {
     return joinWithSeparator(NSAttributedString(string: separator))
   }
 }

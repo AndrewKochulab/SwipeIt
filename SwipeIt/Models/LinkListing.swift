@@ -19,7 +19,7 @@ struct LinkListing: Mappable, Listing {
   // MARK: JSON
   init?(_ map: Map) { }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     mappingListing(map)
     links <- map["data.children"]
   }

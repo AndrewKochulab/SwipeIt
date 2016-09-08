@@ -30,52 +30,52 @@ extension AlerteableViewController where Self: UIViewController {
                     alertClicked: ((AlertButtonClicked) -> Void)? = nil) {
 
     let alertController = UIAlertController(title: title, message: message,
-                                            preferredStyle: .Alert)
+                                            preferredStyle: .alert)
 
     if let cancelButtonTitle = cancelButtonTitle {
-      let dismissAction = UIAlertAction(title: cancelButtonTitle, style: .Cancel) { _ in
-        alertClicked?(.Cancel)
+      let dismissAction = UIAlertAction(title: cancelButtonTitle, style: .cancel) { _ in
+        alertClicked?(.cancel)
       }
       alertController.addAction(dismissAction)
     }
 
     if let textFieldConfig = textField {
-      alertController.addTextFieldWithConfigurationHandler { (textField) in
+      alertController.addTextField { textField in
         textField.placeholder = textFieldConfig.placeholder
         textField.text = textFieldConfig.text
 
         if let buttonTitle = buttonTitle {
-          let buttonAction = UIAlertAction(title: buttonTitle, style: .Default) { _ in
-            alertClicked?(.ButtonWithText(textField.text))
+          let buttonAction = UIAlertAction(title: buttonTitle, style: .default) { _ in
+            alertClicked?(.buttonWithText(textField.text))
           }
           alertController.addAction(buttonAction)
         }
       }
     } else {
       if let buttonTitle = buttonTitle {
-        let buttonAction = UIAlertAction(title: buttonTitle, style: .Default) { _ in
-          alertClicked?(.Button)
+        let buttonAction = UIAlertAction(title: buttonTitle, style: .default) { _ in
+          alertClicked?(.button)
         }
         alertController.addAction(buttonAction)
       }
     }
-    self.presentViewController(alertController, animated: true, completion: nil)
+    self.present(alertController, animated: true, completion: nil)
   }
 }
 
 enum AlertButtonClicked {
-  case Button
-  case ButtonWithText(String?)
-  case Cancel
+  case button
+  case buttonWithText(String?)
+  case cancel
 }
 
 func == (lhs: AlertButtonClicked, rhs: AlertButtonClicked) -> Bool {
   switch (lhs, rhs) {
-  case (.Button, .Button):
+  case (.button, .button):
     return true
-  case (.ButtonWithText, .ButtonWithText):
+  case (.buttonWithText, .buttonWithText):
     return true
-  case (.Cancel, .Cancel):
+  case (.cancel, .cancel):
     return true
   default:
     return false

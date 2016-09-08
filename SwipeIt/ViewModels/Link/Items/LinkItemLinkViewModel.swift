@@ -15,10 +15,10 @@ import RxAlamofire
 class LinkItemLinkViewModel: LinkItemViewModel {
 
   // MARK: Constants
-  private static let facebookBotUserAgent = "Facebot"
+  fileprivate static let facebookBotUserAgent = "Facebot"
 
   // MARK: Private Properties
-  private let openGraph: Variable<OpenGraph?> = Variable(nil)
+  fileprivate let openGraph: Variable<OpenGraph?> = Variable(nil)
 
   // MARK: Observables
   var openGraphImageURL: Observable<NSURL?> {

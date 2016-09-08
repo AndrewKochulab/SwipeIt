@@ -20,7 +20,7 @@ abstract_target 'SwipeItCommon' do
     pod 'Device'
     pod 'Fabric'
     pod 'Crashlytics'
-    pod 'KeychainSwift', '~> 3.0'
+    pod 'KeychainSwift'
     pod 'RxDataSources'
     pod 'DateTools'
     pod 'RxAlamofire'
@@ -55,6 +55,11 @@ post_install do |installer|
       other_swift_flags << '-Xfrontend'
       other_swift_flags << '-debug-time-function-bodies'
       config.build_settings['OTHER_SWIFT_FLAGS'] = other_swift_flags
+
+      swift_version = config.build_settings['SWIFT_VERSION']
+      swift_version = "2.3"
+
+      config.build_settings['SWIFT_VERSION'] = swift_version
     end
   end
 end

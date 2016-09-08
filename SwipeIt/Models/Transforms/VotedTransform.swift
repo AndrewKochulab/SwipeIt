@@ -15,11 +15,11 @@ class VoteTransform: TransformType {
 
   init() {}
 
-  func transformFromJSON(value: AnyObject?) -> Object? {
+  func transformFromJSON(_ value: AnyObject?) -> Object? {
     return Vote.fromBool(value as? JSON)
   }
 
-  func transformToJSON(value: Object?) -> JSON? {
+  func transformToJSON(_ value: Object?) -> JSON? {
     return value?.value
   }
 }

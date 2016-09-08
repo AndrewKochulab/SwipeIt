@@ -24,12 +24,12 @@ struct MoreComments: Thing, Mappable {
   // MARK: JSON
   init?(_ map: Map) { }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     mappingThing(map)
     mappingMoreComments(map)
   }
 
-  private mutating func mappingMoreComments(map: Map) {
+  fileprivate mutating func mappingMoreComments(_ map: Map) {
     children <- map["data.children"]
     count <- map["data.count"]
     parentId <- map["data.parent_id"]

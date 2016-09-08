@@ -13,18 +13,18 @@ import ZLSwipeableViewSwift
 class LinkSwipeViewController: UIViewController, CloseableViewController {
 
   // MARK: - IBOutlets
-  @IBOutlet private weak var swipeView: ZLSwipeableView!
-  @IBOutlet private weak var downvoteButton: UIButton!
-  @IBOutlet private weak var upvoteButton: UIButton!
-  @IBOutlet private weak var undoButton: UIButton!
-  @IBOutlet private weak var shareButton: UIButton!
+  @IBOutlet fileprivate weak var swipeView: ZLSwipeableView!
+  @IBOutlet fileprivate weak var downvoteButton: UIButton!
+  @IBOutlet fileprivate weak var upvoteButton: UIButton!
+  @IBOutlet fileprivate weak var undoButton: UIButton!
+  @IBOutlet fileprivate weak var shareButton: UIButton!
 
   // MARK: - ViewModel
   var viewModel: LinkSwipeViewModel!
 
   // MARK: Properties
-  private var cardIndex: Int = 0
-  private lazy var shareHelper: ShareHelper = ShareHelper(viewController: self)
+  fileprivate var cardIndex: Int = 0
+  fileprivate lazy var shareHelper: ShareHelper = ShareHelper(viewController: self)
 }
 
 // MARK: - Lifecycle
@@ -46,13 +46,13 @@ extension LinkSwipeViewController {
 // MARK: - Setup
 extension LinkSwipeViewController {
 
-  private func setup() {
+  fileprivate func setup() {
     setupCloseButton()
     setupSwipeView()
     bindViewModel()
   }
 
-  private func setupSwipeView() {
+  fileprivate func setupSwipeView() {
     swipeView.animateView = ZLSwipeableView.tinderAnimateViewHandler()
     swipeView.numberOfHistoryItem = 10
     swipeView.didTap = { [weak self] (view, location) in
@@ -79,7 +79,7 @@ extension LinkSwipeViewController {
     updateUndoButton()
   }
 
-  private func bindViewModel() {
+  fileprivate func bindViewModel() {
     viewModel.title
       .bindTo(rx_title)
       .addDisposableTo(rx_disposeBag)
@@ -90,7 +90,7 @@ extension LinkSwipeViewController {
       }.addDisposableTo(rx_disposeBag)
   }
 
-  private func updateUndoButton() {
+  fileprivate func updateUndoButton() {
     undoButton.enabled = swipeView.history.count != 0
   }
 }
@@ -98,17 +98,17 @@ extension LinkSwipeViewController {
 // MARK: IBActions
 extension LinkSwipeViewController {
 
-  @IBAction private func upvoteClick() {
+  @IBAction fileprivate func upvoteClick() {
     currentCardView?.animateOverlayPercentage(1)
     swipeView.swipeTopView(inDirection: .Right)
   }
 
-  @IBAction private func downvoteClick() {
+  @IBAction fileprivate func downvoteClick() {
     currentCardView?.animateOverlayPercentage(-1)
     swipeView.swipeTopView(inDirection: .Left)
   }
 
-  @IBAction private func undoClick() {
+  @IBAction fileprivate func undoClick() {
     guard swipeView.history.count > 0 else { return }
     currentCardView?.didDisappear()
     swipeView.rewind()
@@ -118,7 +118,7 @@ extension LinkSwipeViewController {
     currentCardView?.didAppear()
   }
 
-  @IBAction private func shareClick() {
+  @IBAction fileprivate func shareClick() {
     guard let viewModel = currentViewModel else { return }
     shareHelper.share(viewModel.title, URL: viewModel.url, image: nil, fromView: shareButton)
   }
@@ -127,7 +127,7 @@ extension LinkSwipeViewController {
 // MARK: ZLSwipeableViewDelegate
 extension LinkSwipeViewController {
 
-  private func swipeViewNextView() -> UIView? {
+  fileprivate func swipeViewNextView() -> UIView? {
     guard let viewModel = self.viewModel.viewModelForIndex(cardIndex) else {
       self.viewModel.requestLinks()
       return nil
@@ -149,7 +149,7 @@ extension LinkSwipeViewController {
     return view
   }
 
-  private func swipeViewSwiped(view: LinkCardView, inDirection: Direction,
+  fileprivate func swipeViewSwiped(_ view: LinkCardView, inDirection: Direction,
                                directionVector: CGVector) {
     updateUndoButton()
     currentCardView?.didAppear()
@@ -174,15 +174,15 @@ extension LinkSwipeViewController {
     }
   }
 
-  private func swipeViewTapped(view: LinkCardView, location: CGPoint) {
+  fileprivate func swipeViewTapped(_ view: LinkCardView, location: CGPoint) {
 
   }
 
-  private func swipeViewDisappeared(view: LinkCardView) {
+  fileprivate func swipeViewDisappeared(_ view: LinkCardView) {
     view.didDisappear()
   }
 
-  private func swipeViewSwiping(view: LinkCardView, atLocation: CGPoint, translation: CGPoint) {
+  fileprivate func swipeViewSwiping(_ view: LinkCardView, atLocation: CGPoint, translation: CGPoint) {
     let offset = translation.x
     let direction: CGFloat = offset >= 0 ? 1 : -1
     let min: CGFloat = 20
@@ -191,7 +191,7 @@ extension LinkSwipeViewController {
     view.animateOverlayPercentage(percentage)
   }
 
-  private func swipeViewDidCancelSwiping(view: LinkCardView) {
+  fileprivate func swipeViewDidCancelSwiping(_ view: LinkCardView) {
     view.animateOverlayPercentage(0)
   }
 }
@@ -199,19 +199,19 @@ extension LinkSwipeViewController {
 // MARK: - Helpers
 extension LinkSwipeViewController {
 
-  private func voteCompletion(error: ErrorType?, view: UIView) {
-    guard let _ = error where swipeView.history.last == view else {
+  fileprivate func voteCompletion(_ error: Error?, view: UIView) {
+    guard let _ = error , swipeView.history.last == view else {
       return
     }
     currentCardView?.didDisappear()
     swipeView.rewind()
   }
 
-  private var currentViewModel: LinkItemViewModel? {
+  fileprivate var currentViewModel: LinkItemViewModel? {
     return (swipeView.topView() as? LinkCardView)?.viewModel
   }
 
-  private var currentCardView: LinkCardView? {
+  fileprivate var currentCardView: LinkCardView? {
     return swipeView.topView() as? LinkCardView
   }
 }

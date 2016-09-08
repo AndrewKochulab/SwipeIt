@@ -15,10 +15,10 @@ import TTTAttributedLabel
 class LinkItemViewModel: ViewModel {
 
   // MARK: Private
-  private let user: User
-  private let accessToken: AccessToken
-  private let vote: Variable<Vote>
-  private let showSubreddit: Bool
+  fileprivate let user: User
+  fileprivate let accessToken: AccessToken
+  fileprivate let vote: Variable<Vote>
+  fileprivate let showSubreddit: Bool
 
   // MARK: Protected
   let disposeBag: DisposeBag = DisposeBag()
@@ -29,12 +29,12 @@ class LinkItemViewModel: ViewModel {
     return link.title
   }
 
-  var url: NSURL {
+  var url: URL {
     return link.url
   }
 
   // MARK: Private Observables
-  private var timeAgo: Observable<NSAttributedString> {
+  fileprivate var timeAgo: Observable<NSAttributedString> {
     return Observable
       .combineLatest(Observable.just(link.created), NSTimer.rx_timer) { ($0, $1) }
       .map { (created, _) -> String in
@@ -43,12 +43,12 @@ class LinkItemViewModel: ViewModel {
       .map { NSAttributedString(string: $0) }
   }
 
-  private var subredditName: Observable<NSAttributedString?> {
+  fileprivate var subredditName: Observable<NSAttributedString?> {
     return Observable.just(showSubreddit ? NSAttributedString(string: link.subreddit,
       attributes: [NSLinkAttributeName: link.subredditURL]) : nil)
   }
 
-  private var author: Observable<NSAttributedString> {
+  fileprivate var author: Observable<NSAttributedString> {
     return Observable.just(NSAttributedString(string: link.author,
       attributes: [NSLinkAttributeName: link.authorURL]))
   }
@@ -118,11 +118,11 @@ class LinkItemViewModel: ViewModel {
     // Nothing to preload in here
   }
 
-  func upvote(completion: (ErrorType?) -> Void) {
+  func upvote(_ completion: (Error?) -> Void) {
     vote(.Upvote, completion: completion)
   }
 
-  func downvote(completion: (ErrorType?) -> Void) {
+  func downvote(_ completion: (Error?) -> Void) {
     vote(.Downvote, completion: completion)
   }
 
@@ -134,7 +134,7 @@ class LinkItemViewModel: ViewModel {
 // MARK: Network
 extension LinkItemViewModel {
 
-  private func vote(vote: Vote, completion: ((ErrorType?) -> Void)? = nil) {
+  fileprivate func vote(_ vote: Vote, completion: ((Error?) -> Void)? = nil) {
     let oldVote = self.vote.value
     self.vote.value = vote
     Network.request(.Vote(token: accessToken.token, identifier: link.name,
@@ -155,19 +155,19 @@ extension LinkItemViewModel {
 // MARK: Helpers
 extension LinkItemViewModel {
 
-  static func viewModelFromLink(link: Link, user: User, accessToken: AccessToken,
+  static func viewModelFromLink(_ link: Link, user: User, accessToken: AccessToken,
                                 subredditOnly: Bool) -> LinkItemViewModel {
     switch link.type {
-    case .Video:
+    case .video:
       return LinkItemVideoViewModel(user: user, accessToken: accessToken, link: link,
                                     showSubreddit: !subredditOnly)
-    case .Image, .GIF, .Album:
+    case .image, .gif, .album:
       return LinkItemImageViewModel(user: user, accessToken: accessToken, link: link,
                                     showSubreddit: !subredditOnly)
-    case .SelfPost:
+    case .selfPost:
       return LinkItemSelfPostViewModel(user: user, accessToken: accessToken, link: link,
                                        showSubreddit: !subredditOnly)
-    case .LinkPost:
+    case .linkPost:
       return LinkItemLinkViewModel(user: user, accessToken: accessToken, link: link,
                                    showSubreddit: !subredditOnly)
     }

@@ -15,7 +15,7 @@ import TTTAttributedLabel
 class LinkCardView: UIView {
 
   // MARK: - Constants
-  private static let spacing: CGFloat = 10
+  fileprivate static let spacing: CGFloat = 10
 
   // MARK: - ViewModel
   var viewModel: LinkItemViewModel? {
@@ -48,14 +48,14 @@ class LinkCardView: UIView {
   }
 
   // MARK: - Views
-  private lazy var containerView: UIView = self.createContentView()
-  private lazy var titleLabel: UILabel = self.createTitleLabel()
-  private lazy var contextLabel: TTTAttributedLabel = self.createContextLabel()
-  private lazy var topBar: UIVisualEffectView = self.createTopBar()
-  private lazy var bottomBar: UIVisualEffectView = self.createBottomBar()
-  private lazy var statsLabel: UILabel = self.createStatsLabel()
-  private lazy var upvoteOverlayImageView: VoteOverlayView = self.createUpvoteOverlayView()
-  private lazy var downvoteOverlayImageView: VoteOverlayView = self.createDownvoteOverlayView()
+  fileprivate lazy var containerView: UIView = self.createContentView()
+  fileprivate lazy var titleLabel: UILabel = self.createTitleLabel()
+  fileprivate lazy var contextLabel: TTTAttributedLabel = self.createContextLabel()
+  fileprivate lazy var topBar: UIVisualEffectView = self.createTopBar()
+  fileprivate lazy var bottomBar: UIVisualEffectView = self.createBottomBar()
+  fileprivate lazy var statsLabel: UILabel = self.createStatsLabel()
+  fileprivate lazy var upvoteOverlayImageView: VoteOverlayView = self.createUpvoteOverlayView()
+  fileprivate lazy var downvoteOverlayImageView: VoteOverlayView = self.createDownvoteOverlayView()
 
   var contentView: UIView? = nil {
     didSet {
@@ -66,9 +66,9 @@ class LinkCardView: UIView {
         make.bottom.equalTo(bottomBar.snp_top)
         make.left.right.equalTo(containerView)
       }
-      containerView.bringSubviewToFront(upvoteOverlayImageView)
-      containerView.bringSubviewToFront(downvoteOverlayImageView)
-      containerView.bringSubviewToFront(bottomBar)
+      containerView.bringSubview(toFront: upvoteOverlayImageView)
+      containerView.bringSubview(toFront: downvoteOverlayImageView)
+      containerView.bringSubview(toFront: bottomBar)
     }
     willSet {
       contentView?.removeFromSuperview()
@@ -91,19 +91,19 @@ class LinkCardView: UIView {
     commonInit()
   }
 
-  private func commonInit() {
-    backgroundColor = .whiteColor()
-    borderColor = UIColor(named: .Gray)
+  fileprivate func commonInit() {
+    backgroundColor = .white()
+    borderColor = UIColor(named: .gray)
     borderWidth = 1
     cornerRadius = 4
     clipsToBounds = true
-    opaque = true
+    isOpaque = true
 
     addSubview(containerView)
     setupConstraints()
   }
 
-  private func setupConstraints() {
+  fileprivate func setupConstraints() {
     containerView.snp_makeConstraints { make in
       make.top.left.equalTo(self)
       make.width.equalTo(bounds.width)
@@ -150,10 +150,10 @@ class LinkCardView: UIView {
     }
 
     [titleLabel, contextLabel, statsLabel]
-      .forEach { $0.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Vertical) }
+      .forEach { $0.setContentHuggingPriority(UILayoutPriorityRequired, for: .vertical) }
 
     statsLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh,
-                                                       forAxis: .Horizontal)
+                                                       for: .horizontal)
   }
 }
 
@@ -197,7 +197,7 @@ extension LinkCardView {
   }
 
   // MARK: Animation
-  func animateOverlayPercentage(percentage: CGFloat) {
+  func animateOverlayPercentage(_ percentage: CGFloat) {
     let upvoteAlpha = max(min(percentage, 1), 0)
     let downvoteAlpha = max(min(-percentage, 1), 0)
 
@@ -214,11 +214,11 @@ extension LinkCardView {
 // MARK: - View Builders
 extension LinkCardView {
 
-  private func createContextLabel() -> TTTAttributedLabel {
+  fileprivate func createContextLabel() -> TTTAttributedLabel {
     let label = TTTAttributedLabel(frame: CGRect.zero)
-    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
     label.numberOfLines = 1
-    label.textAlignment = .Left
+    label.textAlignment = .left
     label.delegate = self
 
     Theming.sharedInstance.secondaryTextColor
@@ -235,26 +235,26 @@ extension LinkCardView {
     return label
   }
 
-  private func createUpvoteOverlayView() -> VoteOverlayView {
+  fileprivate func createUpvoteOverlayView() -> VoteOverlayView {
     let view = VoteOverlayView()
-    view.text = tr(.LinkUpvote).uppercaseString
-    view.tintColor = UIColor(named: .Orange)
-    view.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI)/6)
+    view.text = tr(.LinkUpvote).uppercased()
+    view.tintColor = UIColor(named: .orange)
+    view.transform = CGAffineTransform(rotationAngle: -CGFloat(M_PI)/6)
     return view
   }
 
-  private func createDownvoteOverlayView() -> VoteOverlayView {
+  fileprivate func createDownvoteOverlayView() -> VoteOverlayView {
     let view = VoteOverlayView()
-    view.text = tr(.LinkDownvote).uppercaseString
-    view.tintColor = UIColor(named: .Purple)
-    view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI)/6)
+    view.text = tr(.LinkDownvote).uppercased()
+    view.tintColor = UIColor(named: .purple)
+    view.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI)/6)
     return view
   }
 
-  private func createTitleLabel() -> UILabel {
+  fileprivate func createTitleLabel() -> UILabel {
     let label = UILabel()
     label.numberOfLines = 0
-    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
 
     TextStyle.Subheadline.rx_font
       .bindTo(label.rx_font)
@@ -266,12 +266,12 @@ extension LinkCardView {
     return label
   }
 
-  private func createStatsLabel() -> UILabel {
+  fileprivate func createStatsLabel() -> UILabel {
     let label = UILabel(frame: CGRect.zero)
     TextStyle.Caption1.rx_font
       .bindTo(label.rx_font)
       .addDisposableTo(self.rx_disposeBag)
-    label.textAlignment = .Right
+    label.textAlignment = .right
 
     Theming.sharedInstance.secondaryTextColor
       .bindTo(label.rx_textColor)
@@ -280,20 +280,20 @@ extension LinkCardView {
     return label
   }
 
-  private func createBottomBar() -> UIVisualEffectView {
-    let view = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
+  fileprivate func createBottomBar() -> UIVisualEffectView {
+    let view = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
     view.addSubview(self.statsLabel)
     return view
   }
 
-  private func createTopBar() -> UIVisualEffectView {
-    let view = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
+  fileprivate func createTopBar() -> UIVisualEffectView {
+    let view = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
     view.addSubview(self.titleLabel)
     view.addSubview(self.contextLabel)
     return view
   }
 
-  private func createContentView() -> UIView {
+  fileprivate func createContentView() -> UIView {
     let view = UIView()
     view.addSubview(self.bottomBar)
     view.addSubview(self.topBar)
@@ -306,7 +306,7 @@ extension LinkCardView {
 // MARK: - Helpers
 extension LinkCardView {
 
-  private static func statsAttributedString(scoreIcon: Observable<UIImage>,
+  fileprivate static func statsAttributedString(_ scoreIcon: Observable<UIImage>,
                                             score: Observable<NSAttributedString>,
                                             commentsIcon: Observable<UIImage>,
                                             comments: Observable<NSAttributedString>,
@@ -322,7 +322,7 @@ extension LinkCardView {
       }
   }
 
-  private static func iconAttributedString(icon: Observable<UIImage>, font: Observable<UIFont>)
+  fileprivate static func iconAttributedString(_ icon: Observable<UIImage>, font: Observable<UIFont>)
     -> Observable<NSAttributedString> {
       return Observable.combineLatest(icon, font) { (icon, font) -> NSAttributedString in
         let attachment = ImageAttachment(icon, verticalOffset: font.descender)

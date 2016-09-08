@@ -13,7 +13,7 @@ class Theming {
 
   static let sharedInstance = Theming()
 
-  private let _theme: Variable<Theme>
+  fileprivate let _theme: Variable<Theme>
 
   var theme: Observable<Theme> {
     return _theme.asObservable()
@@ -23,11 +23,11 @@ class Theming {
     self._theme = Variable(theme)
   }
 
-  private convenience init() {
+  fileprivate convenience init() {
     self.init(theme: Globals.theme ?? .Light)
   }
 
-  func setTheme(theme: Theme) {
+  func setTheme(_ theme: Theme) {
     self._theme.value = theme
   }
 }

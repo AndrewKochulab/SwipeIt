@@ -10,7 +10,7 @@ import UIKit
 
 class SubredditListItemTableViewCell: UITableViewCell, ReusableCell {
 
-  @IBOutlet private weak var nameLabel: UILabel!
+  @IBOutlet fileprivate weak var nameLabel: UILabel!
 
   var viewModel: SubredditListItemViewModel! {
     didSet {

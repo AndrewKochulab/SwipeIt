@@ -24,39 +24,39 @@ extension Color {
 enum ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#555555"></span>
   /// Alpha: 100% <br/> (0x555555ff)
-  case DarkGray
+  case darkGray
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#cbcccd"></span>
   /// Alpha: 100% <br/> (0xcbcccdff)
-  case Gray
+  case gray
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#77cca4"></span>
   /// Alpha: 100% <br/> (0x77cca4ff)
-  case Green
+  case green
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#f0f1f2"></span>
   /// Alpha: 100% <br/> (0xf0f1f2ff)
-  case LightGray
+  case lightGray
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ff8b60"></span>
   /// Alpha: 100% <br/> (0xff8b60ff)
-  case Orange
+  case orange
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#9494ff"></span>
   /// Alpha: 100% <br/> (0x9494ffff)
-  case Purple
+  case purple
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffcc00"></span>
   /// Alpha: 100% <br/> (0xffcc00ff)
-  case Yellow
+  case yellow
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#007aff"></span>
   /// Alpha: 100% <br/> (0x007affff)
-  case IOSBlue
+  case iosBlue
 
   var rgbaValue: UInt32 {
     switch self {
-    case .DarkGray: return 0x555555ff
-    case .Gray: return 0xcbcccdff
-    case .Green: return 0x77cca4ff
-    case .LightGray: return 0xf0f1f2ff
-    case .Orange: return 0xff8b60ff
-    case .Purple: return 0x9494ffff
-    case .Yellow: return 0xffcc00ff
-    case .IOSBlue: return 0x007affff
+    case .darkGray: return 0x555555ff
+    case .gray: return 0xcbcccdff
+    case .green: return 0x77cca4ff
+    case .lightGray: return 0xf0f1f2ff
+    case .orange: return 0xff8b60ff
+    case .purple: return 0x9494ffff
+    case .yellow: return 0xffcc00ff
+    case .iosBlue: return 0x007affff
     }
   }
 

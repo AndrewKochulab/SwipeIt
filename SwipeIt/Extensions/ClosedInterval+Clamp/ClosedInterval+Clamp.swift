@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension ClosedInterval {
+extension ClosedRange {
 
-  func clamp(value: Bound) -> Bound {
+  func clamp(_ value: Bound) -> Bound {
     return self.start > value ? self.start
       : self.end < value ? self.end
       : value

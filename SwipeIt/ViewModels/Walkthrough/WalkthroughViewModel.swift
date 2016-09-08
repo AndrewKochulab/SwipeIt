@@ -36,13 +36,13 @@ class WalkthroughViewModel: ViewModel {
   var loginViewModel = LoginViewModel()
 
   var subscriptionsViewModel: SubscriptionsViewModel? {
-    guard let user = user, accessToken = accessToken else { return nil }
+    guard let user = user, let accessToken = accessToken else { return nil }
     return SubscriptionsViewModel(user: user, accessToken: accessToken)
   }
 
   // MARK: Private Properties
-  private var accessToken: AccessToken?
-  private var user: User?
+  fileprivate var accessToken: AccessToken?
+  fileprivate var user: User?
 
 }
 
@@ -50,7 +50,7 @@ class WalkthroughViewModel: ViewModel {
 extension WalkthroughViewModel {
 
   // Object isn't wrapped in a data object as opposed to all other endpoints
-  private static func getUserDetails(accessToken: AccessToken) -> Observable<User> {
+  fileprivate static func getUserDetails(_ accessToken: AccessToken) -> Observable<User> {
     return Network.request(.UserMeDetails(token: accessToken.token))
       .observeOn(SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
       .mapObject(User.self) { json in

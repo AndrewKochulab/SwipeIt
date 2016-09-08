@@ -12,7 +12,7 @@ import TextStyle
 class VoteOverlayView: UIView {
 
   //private lazy var blurView: UIVisualEffectView = self.createBlurView()
-  private lazy var label: UILabel = self.createLabel()
+  fileprivate lazy var label: UILabel = self.createLabel()
 
   override var tintColor: UIColor! {
     didSet {
@@ -73,12 +73,12 @@ extension VoteOverlayView {
 //    return view
 //  }
 //
-  private func createLabel() -> UILabel {
+  fileprivate func createLabel() -> UILabel {
     let label = UILabel()
-    label.textAlignment = .Center
+    label.textAlignment = .center
     label.textColor = tintColor
-    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
-    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
+    label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
     TextStyle.Title2.rx_font
       .bindTo(label.rx_font)
       .addDisposableTo(rx_disposeBag)

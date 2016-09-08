@@ -12,7 +12,7 @@ import ObjectMapper
 struct Comment: Votable, Mappable {
 
   // MARK: Constants
-  private static let deletedString = "[deleted]"
+  fileprivate static let deletedString = "[deleted]"
 
   // MARK: Thing
   var identifier: String!
@@ -26,7 +26,7 @@ struct Comment: Votable, Mappable {
   var score: Int!
 
   // MARK: Created
-  var created: NSDate!
+  var created: Date!
 
   // MARK: Comment
   var approvedby: String?
@@ -69,12 +69,12 @@ struct Comment: Votable, Mappable {
   // MARK: JSON
   init?(_ map: Map) { }
 
-  mutating func mapping(map: Map) {
+  mutating func mapping(_ map: Map) {
     mappingVotable(map)
     mappingComment(map)
   }
 
-  private mutating func mappingComment(map: Map) {
+  fileprivate mutating func mappingComment(_ map: Map) {
     approvedby <- map["data.approved_by"]
     bannedBy <- map["data.banned_by"]
     author <- map["data.author"]

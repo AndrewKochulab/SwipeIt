@@ -11,9 +11,9 @@ import Foundation
 class MultiredditListItemViewModel: ViewModel {
 
   // MARK: Private Properties
-  private let user: User
-  private let accessToken: AccessToken
-  private let multireddit: Multireddit
+  fileprivate let user: User
+  fileprivate let accessToken: AccessToken
+  fileprivate let multireddit: Multireddit
 
   let name: String
   let subreddits: String
@@ -36,10 +36,10 @@ class MultiredditListItemViewModel: ViewModel {
 // MARK: Helpers
 extension MultiredditListItemViewModel {
 
-  private class func subredditString(subreddits: [String]) -> String {
+  fileprivate class func subredditString(_ subreddits: [String]) -> String {
     switch subreddits.count {
     case 0..<4:
-      return subreddits.joinWithSeparator(", ")
+      return subreddits.joined(separator: ", ")
     default:
       return "\(subreddits.count) subreddits"
     }

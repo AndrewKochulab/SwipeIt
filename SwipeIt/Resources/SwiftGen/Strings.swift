@@ -6,69 +6,69 @@ import Foundation
 // swiftlint:disable type_body_length
 enum L10n {
   /// Close
-  case CloseableButtonClose
+  case closeableButtonClose
   /// Login
-  case WalkthroughButtonLogin
+  case walkthroughButtonLogin
   /// Cancel
-  case AlertButtonCancel
+  case alertButtonCancel
   /// OK
-  case AlertButtonOK
+  case alertButtonOK
   /// Login
-  case LoginTitle
+  case loginTitle
   /// Login error
-  case LoginErrorTitle
+  case loginErrorTitle
   /// Could not log in. Please try again later
-  case LoginErrorUnknown
+  case loginErrorUnknown
   /// Login was cancelled
-  case LoginErrorUserCancelled
+  case loginErrorUserCancelled
   /// Subscriptions
-  case SubscriptionsTitle
+  case subscriptionsTitle
   /// hidden
-  case LinkScoreHidden
+  case linkScoreHidden
   /// GIF
-  case LinkIndicatorGIF
+  case linkIndicatorGIF
   /// NSFW
-  case LinkIndicatorNSFW
+  case linkIndicatorNSFW
   /// Spoiler
-  case LinkIndicatorSpoiler
+  case linkIndicatorSpoiler
   /// Album
-  case LinkIndicatorAlbum
+  case linkIndicatorAlbum
   /// Stickied
-  case LinkContextStickied
+  case linkContextStickied
   /// Locked
-  case LinkContextLocked
+  case linkContextLocked
   /// Read more
-  case LinkContentSelfPostReadMore
+  case linkContentSelfPostReadMore
   /// Upvote
-  case LinkUpvote
+  case linkUpvote
   /// Downvote
-  case LinkDownvote
+  case linkDownvote
   /// Hot
-  case ListingTypeHot
+  case listingTypeHot
   /// New
-  case ListingTypeNew
+  case listingTypeNew
   /// Rising
-  case ListingTypeRising
+  case listingTypeRising
   /// Controversial
-  case ListingTypeControversial
+  case listingTypeControversial
   /// Top
-  case ListingTypeTop
+  case listingTypeTop
   /// Gilded
-  case ListingTypeGilded
+  case listingTypeGilded
   /// Past hour
-  case ListingTypeRangeHour
+  case listingTypeRangeHour
   /// Past 24 hours
-  case ListingTypeRangeDay
+  case listingTypeRangeDay
   /// Past week
-  case ListingTypeRangeWeek
+  case listingTypeRangeWeek
   /// Past month
-  case ListingTypeRangeMonth
+  case listingTypeRangeMonth
   /// Past year
-  case ListingTypeRangeYear
+  case listingTypeRangeYear
   /// All-time
-  case ListingTypeRangeAllTime
+  case listingTypeRangeAllTime
   /// Retry
-  case Retry
+  case retry
 }
 // swiftlint:enable type_body_length
 
@@ -77,79 +77,79 @@ extension L10n: CustomStringConvertible {
 
   var string: String {
     switch self {
-      case .CloseableButtonClose:
+      case .closeableButtonClose:
         return L10n.tr("Closeable.Button.Close")
-      case .WalkthroughButtonLogin:
+      case .walkthroughButtonLogin:
         return L10n.tr("Walkthrough.Button.Login")
-      case .AlertButtonCancel:
+      case .alertButtonCancel:
         return L10n.tr("Alert.Button.Cancel")
-      case .AlertButtonOK:
+      case .alertButtonOK:
         return L10n.tr("Alert.Button.OK")
-      case .LoginTitle:
+      case .loginTitle:
         return L10n.tr("Login.Title")
-      case .LoginErrorTitle:
+      case .loginErrorTitle:
         return L10n.tr("Login.Error.Title")
-      case .LoginErrorUnknown:
+      case .loginErrorUnknown:
         return L10n.tr("Login.Error.Unknown")
-      case .LoginErrorUserCancelled:
+      case .loginErrorUserCancelled:
         return L10n.tr("Login.Error.UserCancelled")
-      case .SubscriptionsTitle:
+      case .subscriptionsTitle:
         return L10n.tr("Subscriptions.Title")
-      case .LinkScoreHidden:
+      case .linkScoreHidden:
         return L10n.tr("Link.Score.Hidden")
-      case .LinkIndicatorGIF:
+      case .linkIndicatorGIF:
         return L10n.tr("Link.Indicator.GIF")
-      case .LinkIndicatorNSFW:
+      case .linkIndicatorNSFW:
         return L10n.tr("Link.Indicator.NSFW")
-      case .LinkIndicatorSpoiler:
+      case .linkIndicatorSpoiler:
         return L10n.tr("Link.Indicator.Spoiler")
-      case .LinkIndicatorAlbum:
+      case .linkIndicatorAlbum:
         return L10n.tr("Link.Indicator.Album")
-      case .LinkContextStickied:
+      case .linkContextStickied:
         return L10n.tr("Link.Context.Stickied")
-      case .LinkContextLocked:
+      case .linkContextLocked:
         return L10n.tr("Link.Context.Locked")
-      case .LinkContentSelfPostReadMore:
+      case .linkContentSelfPostReadMore:
         return L10n.tr("Link.Content.SelfPost.ReadMore")
-      case .LinkUpvote:
+      case .linkUpvote:
         return L10n.tr("Link.Upvote")
-      case .LinkDownvote:
+      case .linkDownvote:
         return L10n.tr("Link.Downvote")
-      case .ListingTypeHot:
+      case .listingTypeHot:
         return L10n.tr("ListingType.Hot")
-      case .ListingTypeNew:
+      case .listingTypeNew:
         return L10n.tr("ListingType.New")
-      case .ListingTypeRising:
+      case .listingTypeRising:
         return L10n.tr("ListingType.Rising")
-      case .ListingTypeControversial:
+      case .listingTypeControversial:
         return L10n.tr("ListingType.Controversial")
-      case .ListingTypeTop:
+      case .listingTypeTop:
         return L10n.tr("ListingType.Top")
-      case .ListingTypeGilded:
+      case .listingTypeGilded:
         return L10n.tr("ListingType.Gilded")
-      case .ListingTypeRangeHour:
+      case .listingTypeRangeHour:
         return L10n.tr("ListingType.Range.Hour")
-      case .ListingTypeRangeDay:
+      case .listingTypeRangeDay:
         return L10n.tr("ListingType.Range.Day")
-      case .ListingTypeRangeWeek:
+      case .listingTypeRangeWeek:
         return L10n.tr("ListingType.Range.Week")
-      case .ListingTypeRangeMonth:
+      case .listingTypeRangeMonth:
         return L10n.tr("ListingType.Range.Month")
-      case .ListingTypeRangeYear:
+      case .listingTypeRangeYear:
         return L10n.tr("ListingType.Range.Year")
-      case .ListingTypeRangeAllTime:
+      case .listingTypeRangeAllTime:
         return L10n.tr("ListingType.Range.AllTime")
-      case .Retry:
+      case .retry:
         return L10n.tr("Retry")
     }
   }
 
-  private static func tr(key: String, _ args: CVarArgType...) -> String {
+  fileprivate static func tr(_ key: String, _ args: CVarArg...) -> String {
     let format = NSLocalizedString(key, comment: "")
-    return String(format: format, locale: NSLocale.currentLocale(), arguments: args)
+    return String(format: format, locale: Locale.current, arguments: args)
   }
 }
 
-func tr(key: L10n) -> String {
+func tr(_ key: L10n) -> String {
   return key.string
 }

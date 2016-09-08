@@ -13,19 +13,19 @@ extension ZLSwipeableView {
 
   static func tinderAnimateViewHandler() -> AnimateViewHandler {
 
-    func animateView(view: UIView, forScale scale: CGFloat, duration: NSTimeInterval,
+    func animateView(_ view: UIView, forScale scale: CGFloat, duration: TimeInterval,
                      offsetFromCenter offset: CGFloat, swipeableView: ZLSwipeableView,
                                       completion: ((Bool) -> Void)? = nil) {
       let animations = {
         view.center = swipeableView.convertPoint(swipeableView.center,
                                                  fromView: swipeableView.superview)
         let translate = offset + ((swipeableView.bounds.height * (1 - scale)) / 2)
-        var transform = CGAffineTransformMakeScale(scale, scale)
-        transform = CGAffineTransformTranslate(transform, 0, translate)
+        var transform = CGAffineTransform(scaleX: scale, y: scale)
+        transform = transform.translatedBy(x: 0, y: translate)
         view.transform = transform
       }
       if duration > 0 {
-        UIView.animateWithDuration(duration, delay: 0, options: .AllowUserInteraction,
+        UIView.animate(withDuration: duration, delay: 0, options: .allowUserInteraction,
                                    animations: animations, completion: completion)
       } else {
         animations()

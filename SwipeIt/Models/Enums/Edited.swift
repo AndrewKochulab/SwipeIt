@@ -10,12 +10,12 @@ import Foundation
 
 enum Edited: Equatable {
 
-  case False
-  case True(editedAt: NSDate?)
+  case `false`
+  case `true`(editedAt: Date?)
 
-  var editedAt: NSDate? {
+  var editedAt: Date? {
     switch self {
-    case .True(let date):
+    case .true(let date):
       return date
     default:
       return nil
@@ -24,9 +24,9 @@ enum Edited: Equatable {
 
   var value: AnyObject {
     switch self {
-    case .False:
+    case .false:
       return false
-    case .True(let editedAt):
+    case .true(let editedAt):
       guard let editedAt = editedAt else {
         return true
       }
@@ -34,31 +34,31 @@ enum Edited: Equatable {
     }
   }
 
-  static func fromValue(value: AnyObject?) -> Edited {
+  static func fromValue(_ value: AnyObject?) -> Edited {
     switch value {
     case let epochDate as Int:
       guard epochDate > 1 else {
-        return epochDate == 0 ? .False : .True(editedAt: nil)
+        return epochDate == 0 ? .false : .true(editedAt: nil)
       }
-      return .True(editedAt: (NSDate(timeIntervalSince1970: Double(epochDate))))
+      return .true(editedAt: (Date(timeIntervalSince1970: Double(epochDate))))
     case let edited as Bool:
-      return edited ? .True(editedAt: nil) : .False
+      return edited ? .true(editedAt: nil) : .false
     default:
-      return .False
+      return .false
     }
   }
 }
 
 func == (lhs: Edited, rhs: Edited) -> Bool {
   switch (lhs, rhs) {
-  case (.False, .False):
+  case (.false, .false):
     return true
-  case (.False, .True), (.True, .False):
+  case (.false, .true), (.true, .false):
     return false
-  case (.True(let lhsDate), .True(let rhsDate)):
-    guard let lhsDateValue = lhsDate, rhsDateValue = rhsDate else {
+  case (.true(let lhsDate), .true(let rhsDate)):
+    guard let lhsDateValue = lhsDate, let rhsDateValue = rhsDate else {
       return lhsDate == rhsDate
     }
-    return lhsDateValue.compare(rhsDateValue) == .OrderedSame
+    return lhsDateValue.compare(rhsDateValue) == .orderedSame
   }
 }

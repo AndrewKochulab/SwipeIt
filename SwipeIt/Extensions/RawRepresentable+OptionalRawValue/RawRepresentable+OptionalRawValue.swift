@@ -20,7 +20,7 @@ extension RawRepresentable {
    */
    init?(optionalRawValue: RawValue?) {
 
-    guard let rawValue = optionalRawValue, value = Self(rawValue: rawValue) else { return nil }
+    guard let rawValue = optionalRawValue, let value = Self(rawValue: rawValue) else { return nil }
 
     self = value
   }

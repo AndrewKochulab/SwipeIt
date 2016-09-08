@@ -11,7 +11,7 @@ import UIKit
 extension UIStoryboardSegue {
 
   var navigationRootViewController: UIViewController? {
-    guard let navigationController = destinationViewController as? UINavigationController else {
+    guard let navigationController = destination as? UINavigationController else {
       return nil
     }
     return navigationController.viewControllers.first

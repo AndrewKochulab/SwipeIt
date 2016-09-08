@@ -13,16 +13,16 @@ import RxSwift
 class LinkSwipeViewModel {
 
   // MARK: Private Properties
-  private let _title: String
-  private let path: String
-  private let subredditOnly: Bool
-  private let user: User
-  private let accessToken: AccessToken
-  private let linkListings: Variable<[LinkListing]> = Variable([])
-  private let _viewModels: Variable<[LinkItemViewModel]> = Variable([])
-  private let _listingType: Variable<ListingType> = Variable(.Hot)
-  private var disposeBag = DisposeBag()
-  private let _loadingState = Variable<LoadingState>(.Normal)
+  fileprivate let _title: String
+  fileprivate let path: String
+  fileprivate let subredditOnly: Bool
+  fileprivate let user: User
+  fileprivate let accessToken: AccessToken
+  fileprivate let linkListings: Variable<[LinkListing]> = Variable([])
+  fileprivate let _viewModels: Variable<[LinkItemViewModel]> = Variable([])
+  fileprivate let _listingType: Variable<ListingType> = Variable(.Hot)
+  fileprivate var disposeBag = DisposeBag()
+  fileprivate let _loadingState = Variable<LoadingState>(.Normal)
 
   // MARK: Initializer
   init(user: User, accessToken: AccessToken, title: String, path: String, subredditOnly: Bool) {
@@ -47,32 +47,32 @@ class LinkSwipeViewModel {
 // MARK: Private Observables
 extension LinkSwipeViewModel {
 
-  private var userObservable: Observable<User> {
+  fileprivate var userObservable: Observable<User> {
     return .just(user)
   }
 
-  private var accessTokenObservable: Observable<AccessToken> {
+  fileprivate var accessTokenObservable: Observable<AccessToken> {
     return .just(accessToken)
   }
 
-  private var afterObservable: Observable<String?> {
+  fileprivate var afterObservable: Observable<String?> {
     return linkListings.asObservable()
       .map { $0.last?.after }
   }
 
-  private var listingTypeObservable: Observable<ListingType> {
+  fileprivate var listingTypeObservable: Observable<ListingType> {
     return _listingType.asObservable()
   }
 
-  private var pathObservable: Observable<String> {
+  fileprivate var pathObservable: Observable<String> {
     return .just(path)
   }
 
-  private var subredditOnlyObservable: Observable<Bool> {
+  fileprivate var subredditOnlyObservable: Observable<Bool> {
     return .just(subredditOnly)
   }
 
-  private var request: Observable<LinkListing> {
+  fileprivate var request: Observable<LinkListing> {
     return Observable
       .combineLatest(listingTypeObservable, afterObservable, accessTokenObservable,
         pathObservable) { ($0, $1, $2, $3) }
@@ -106,7 +106,7 @@ extension LinkSwipeViewModel {
       .map { $0.name }
   }
 
-  func viewModelForIndex(index: Int) -> LinkItemViewModel? {
+  func viewModelForIndex(_ index: Int) -> LinkItemViewModel? {
     return _viewModels.value.get(index)
   }
 
@@ -139,7 +139,7 @@ extension LinkSwipeViewModel {
       }.addDisposableTo(disposeBag)
   }
 
-  func setListingType(listingType: ListingType) {
+  func setListingType(_ listingType: ListingType) {
     guard listingType != _listingType.value else { return }
     _listingType.value = listingType
     refresh()
@@ -157,13 +157,13 @@ extension LinkSwipeViewModel {
 // MARK: Helpers
 extension LinkSwipeViewModel {
 
-  private static func viewModelsFromLinkListing(linkListing: LinkListing, user: User,
+  fileprivate static func viewModelsFromLinkListing(_ linkListing: LinkListing, user: User,
                                                 accessToken: AccessToken, subredditOnly: Bool)
     -> [LinkItemViewModel] {
       return linkListing.links
         .filter { !$0.stickied }
-        .filter { !Globals.hideVotedPosts || $0.vote == .None }
-        .filter { $0.type == .Image || $0.type == .GIF }
+        .filter { !Globals.hideVotedPosts || $0.vote == .none }
+        .filter { $0.type == .image || $0.type == .gif }
         .map { LinkItemViewModel.viewModelFromLink($0, user: user, accessToken: accessToken,
           subredditOnly: subredditOnly)
       }

@@ -11,15 +11,15 @@ import ObjectMapper
 
 class JSONReader {
 
-  class func readFromJSON<T: Mappable>(filename: String) -> T? {
+  class func readFromJSON<T: Mappable>(_ filename: String) -> T? {
     return Mapper<T>().map(JSONReader.readJSONString(filename))
   }
 
-  class func readJSONString(filename: String) -> String? {
-    return String(data: readJSONData(filename), encoding: NSUTF8StringEncoding)
+  class func readJSONString(_ filename: String) -> String? {
+    return String(data: readJSONData(filename), encoding: String.Encoding.utf8)
   }
 
-  class func readJSONData(filename: String) -> NSData {
+  class func readJSONData(_ filename: String) -> Data {
     return FileReader.readFileData(filename, fileExtension: "json")
   }
 

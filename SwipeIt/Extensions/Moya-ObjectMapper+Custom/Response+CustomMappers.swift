@@ -14,11 +14,11 @@ import RxSwift
 extension Response {
 
   func mapPair<T: Mappable, U: Mappable>() throws -> (T, U) {
-    guard let jsonArray = try mapJSON() as? [AnyObject] where jsonArray.count == 2 else {
+    guard let jsonArray = try mapJSON() as? [AnyObject] , jsonArray.count == 2 else {
       throw Error.JSONMapping(self)
     }
     guard let firstObject = Mapper<T>().map(jsonArray[0]),
-      secondObject = Mapper<U>().map(jsonArray[1]) else {
+      let secondObject = Mapper<U>().map(jsonArray[1]) else {
         throw Error.JSONMapping(self)
     }
     return (firstObject, secondObject)
@@ -35,7 +35,7 @@ extension Response {
 
    - returns: The transformed JSON object.
    */
-  func mapObject<T: Mappable>(type: T.Type, jsonTransform: (AnyObject?) -> AnyObject?) throws -> T {
+  func mapObject<T: Mappable>(_ type: T.Type, jsonTransform: (AnyObject?) -> AnyObject?) throws -> T {
     let json = try jsonTransform(mapJSON())
     guard let object = Mapper<T>().map(json) else {
       throw Error.JSONMapping(self)
@@ -47,7 +47,7 @@ extension Response {
 
 extension ObservableType where E == Response {
 
-  func mapPair<T: Mappable, U: Mappable>(type1: T.Type, _ type2: U.Type) -> Observable<(T, U)> {
+  func mapPair<T: Mappable, U: Mappable>(_ type1: T.Type, _ type2: U.Type) -> Observable<(T, U)> {
     return flatMap { response -> Observable<(T, U)> in
       return Observable.just(try response.mapPair())
     }
@@ -62,7 +62,7 @@ extension ObservableType where E == Response {
 
    - returns: The transformed JSON Object observable.
    */
-  func mapObject<T: Mappable>(type: T.Type, jsonTransform: (AnyObject?) -> AnyObject?)
+  func mapObject<T: Mappable>(_ type: T.Type, jsonTransform: @escaping (AnyObject?) -> AnyObject?)
     -> Observable<T> {
     return flatMap { response -> Observable<T> in
       return Observable.just(try response.mapObject(type, jsonTransform: jsonTransform))

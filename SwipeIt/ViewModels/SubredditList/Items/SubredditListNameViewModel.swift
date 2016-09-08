@@ -12,9 +12,9 @@ import Foundation
 class SubredditListNameViewModel: SubredditListItemViewModel {
 
   // MARK: Private Properties
-  private let user: User
-  private let accessToken: AccessToken
-  private let path: String
+  fileprivate let user: User
+  fileprivate let accessToken: AccessToken
+  fileprivate let path: String
 
   // MARK: Public Properties
   let name: String

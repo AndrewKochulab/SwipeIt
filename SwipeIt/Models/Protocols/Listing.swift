@@ -14,13 +14,13 @@ protocol Listing {
   var before: String? { get set }
   var after: String? { get set }
 
-  mutating func mappingListing(map: Map)
+  mutating func mappingListing(_ map: Map)
 
 }
 
 extension Listing {
 
-  mutating func mappingListing(map: Map) {
+  mutating func mappingListing(_ map: Map) {
     before <- map["data.before"]
     after <- map["data.after"]
   }

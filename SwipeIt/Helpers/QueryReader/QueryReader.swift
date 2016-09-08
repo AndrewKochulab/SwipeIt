@@ -10,8 +10,8 @@ import Foundation
 
 class QueryReader {
 
-  class func queryParametersFromString(URLString: String) -> [String: String] {
-    guard let URLComponents = NSURLComponents(string: URLString) else {
+  class func queryParametersFromString(_ URLString: String) -> [String: String] {
+    guard let URLComponents = URLComponents(string: URLString) else {
       return [:]
     }
     return URLComponents.queryItems?.reduce([:]) { (dictionary, queryItem) -> [String: String] in

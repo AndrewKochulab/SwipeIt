@@ -15,34 +15,34 @@ enum Theme: String {
   var textColor: UIColor {
     switch self {
     case .Light:
-      return .darkTextColor()
+      return .darkText()
     case .Dark:
-      return .lightTextColor()
+      return .lightText()
     }
   }
 
   var secondaryTextColor: UIColor {
     switch self {
     case .Light:
-      return UIColor(named: .DarkGray)
+      return UIColor(named: .darkGray)
     case .Dark:
-      return UIColor(named: .LightGray)
+      return UIColor(named: .lightGray)
     }
   }
 
   var accentColor: UIColor {
     switch self {
     default:
-      return UIColor(named: .IOSBlue)
+      return UIColor(named: .iosBlue)
     }
   }
 
   var backgroundColor: UIColor {
     switch self {
     case .Light:
-      return .whiteColor()
+      return .white()
     case .Dark:
-      return .darkGrayColor()
+      return .darkGray()
     }
   }
 }

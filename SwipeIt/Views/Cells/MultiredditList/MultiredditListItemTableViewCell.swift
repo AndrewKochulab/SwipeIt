@@ -10,8 +10,8 @@ import UIKit
 
 class MultiredditListItemTableViewCell: UITableViewCell, ReusableCell {
 
-  @IBOutlet private weak var nameLabel: UILabel!
-  @IBOutlet private weak var subredditsLabel: UILabel!
+  @IBOutlet fileprivate weak var nameLabel: UILabel!
+  @IBOutlet fileprivate weak var subredditsLabel: UILabel!
 
   var viewModel: MultiredditListItemViewModel! {
     didSet {

@@ -11,15 +11,15 @@ import MarkdownKit
 
 class MarkdownUser: MarkdownLink {
 
-  private static let regex = "(^|\\s|\\W)(/?u/(\\w+)/?)"
+  fileprivate static let regex = "(^|\\s|\\W)(/?u/(\\w+)/?)"
 
   override var regex: String {
     return MarkdownUser.regex
   }
 
-  override func match(match: NSTextCheckingResult,
+  override func match(_ match: NSTextCheckingResult,
                       attributedString: NSMutableAttributedString) {
-    let username = attributedString.attributedSubstringFromRange(match.rangeAtIndex(3)).string
+    let username = attributedString.attributedSubstring(from: match.rangeAt(3)).string
     let linkURLString = "http://reddit.com/u/\(username)"
     formatText(attributedString, range: match.range, link: linkURLString)
     addAttributes(attributedString, range: match.range, link: linkURLString)
